@@ -1,0 +1,59 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "majesco": "https://www.majesco.com/ontology/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Policy": "schema:InsurancePolicy",
+    "policyNumber": "schema:identifier",
+    "status": "schema:status",
+    "effectiveDate": {
+      "@id": "schema:startDate",
+      "@type": "xsd:date"
+    },
+    "expirationDate": {
+      "@id": "schema:endDate",
+      "@type": "xsd:date"
+    },
+    "policyholder": "schema:holder",
+    "Policyholder": "schema:Person",
+    "firstName": "schema:givenName",
+    "lastName": "schema:familyName",
+    "dateOfBirth": {
+      "@id": "schema:birthDate",
+      "@type": "xsd:date"
+    },
+    "email": "schema:email",
+    "phone": "schema:telephone",
+    "address": "schema:address",
+    "Address": "schema:PostalAddress",
+    "street1": "schema:streetAddress",
+    "city": "schema:addressLocality",
+    "state": "schema:addressRegion",
+    "postalCode": "schema:postalCode",
+    "country": "schema:addressCountry",
+    "Coverage": "majesco:Coverage",
+    "coverageCode": "schema:identifier",
+    "coverageDescription": "schema:description",
+    "limit": { "@id": "majesco:coverageLimit", "@type": "xsd:decimal" },
+    "deductible": { "@id": "majesco:deductible", "@type": "xsd:decimal" },
+    "premium": { "@id": "schema:price", "@type": "xsd:decimal" },
+    "Premium": "schema:PriceSpecification",
+    "annualPremium": { "@id": "schema:price", "@type": "xsd:decimal" },
+    "totalPremium": { "@id": "schema:totalPrice", "@type": "xsd:decimal" },
+    "currency": "schema:priceCurrency",
+    "Claim": "majesco:InsuranceClaim",
+    "claimNumber": "schema:identifier",
+    "lossDate": { "@id": "schema:startDate", "@type": "xsd:date" },
+    "lossDescription": "schema:description",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

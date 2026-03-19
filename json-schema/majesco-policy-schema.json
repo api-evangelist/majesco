@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json",
+  "title": "Majesco Insurance Policy",
+  "description": "An insurance policy managed through the Majesco cloud platform",
+  "type": "object",
+  "required": ["policyNumber", "productType", "effectiveDate", "expirationDate", "status", "policyholder"],
+  "properties": {
+    "policyNumber": {
+      "type": "string",
+      "description": "Unique policy identifier"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "expired", "cancelled", "pending", "lapsed"],
+      "description": "Current lifecycle status of the policy"
+    },
+    "productType": {
+      "type": "string",
+      "enum": ["auto", "home", "commercial", "life", "health", "specialty"],
+      "description": "Line of business / insurance product type"
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Policy inception date"
+    },
+    "expirationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Policy expiration date"
+    },
+    "cancellationDate": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "policyholder": {
+      "$ref": "#/$defs/Policyholder"
+    },
+    "coverages": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Coverage" }
+    },
+    "premium": {
+      "$ref": "#/$defs/Premium"
+    },
+    "endorsements": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Endorsement" }
+    },
+    "agentCode": {
+      "type": "string",
+      "description": "Issuing agent or broker code"
+    },
+    "channelCode": {
+      "type": "string",
+      "description": "Distribution channel identifier"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "Policyholder": {
+      "type": "object",
+      "required": ["firstName", "lastName"],
+      "properties": {
+        "id": { "type": "string" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "dateOfBirth": { "type": "string", "format": "date" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "address": { "$ref": "#/$defs/Address" }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "street1": { "type": "string" },
+        "street2": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "postalCode": { "type": "string" },
+        "country": { "type": "string", "default": "US" }
+      }
+    },
+    "Coverage": {
+      "type": "object",
+      "required": ["coverageCode"],
+      "properties": {
+        "coverageCode": { "type": "string" },
+        "coverageDescription": { "type": "string" },
+        "limit": { "type": "number", "minimum": 0 },
+        "deductible": { "type": "number", "minimum": 0 },
+        "premium": { "type": "number", "minimum": 0 },
+        "status": {
+          "type": "string",
+          "enum": ["active", "excluded", "suspended"]
+        }
+      }
+    },
+    "Premium": {
+      "type": "object",
+      "properties": {
+        "annualPremium": { "type": "number", "minimum": 0 },
+        "taxAmount": { "type": "number", "minimum": 0 },
+        "feesAmount": { "type": "number", "minimum": 0 },
+        "totalPremium": { "type": "number", "minimum": 0 },
+        "currency": { "type": "string", "default": "USD" },
+        "billingFrequency": {
+          "type": "string",
+          "enum": ["annual", "semi_annual", "quarterly", "monthly"]
+        }
+      }
+    },
+    "Endorsement": {
+      "type": "object",
+      "properties": {
+        "endorsementNumber": { "type": "string" },
+        "type": { "type": "string" },
+        "effectiveDate": { "type": "string", "format": "date" },
+        "description": { "type": "string" },
+        "premiumChange": { "type": "number" }
+      }
+    }
+  }
+}

@@ -15,6 +15,12 @@ apis:
   properties:
   - url: https://www.majesco.com/
     type: Documentation
+  - url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/openapi/majesco-policy-openapi.yml
+    type: OpenAPI
+  - url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
+    type: JSONSchema
+  - url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
+    type: JSONLDContext
   description: >-
     Majesco provides cloud-based insurance platform APIs for policy administration, claims management, billing, and distribution. APIs enable digital insurance operations across P&C, L&A, and specialty lines with modern REST interfaces.
 common:
@@ -22,6 +28,12 @@ common:
   type: Portal
 - url: https://www.majesco.com/
   type: Website
+- url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/openapi/majesco-policy-openapi.yml
+  type: OpenAPI
+- url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
+  type: JSONSchema
+- url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
+  type: JSONLDContext
 maintainer:
   name: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,807 @@
+openapi: 3.1.0
+info:
+  title: Majesco Insurance Policy Administration API
+  description: >-
+    Majesco cloud-based insurance platform API for policy administration, claims
+    management, billing, and distribution. Supports P&C, L&A, and specialty lines
+    with REST interfaces for digital insurance operations.
+  version: 1.0.0
+  contact:
+    name: Majesco Support
+    url: https://www.majesco.com/contact/
+  license:
+    name: Proprietary
+    url: https://www.majesco.com/terms
+externalDocs:
+  description: Majesco Developer Portal
+  url: https://www.majesco.com/
+servers:
+  - url: https://api.majesco.example.com/v1
+    description: Majesco API (customer-specific tenant URL)
+security:
+  - OAuth2: [read, write]
+paths:
+  /policies:
+    get:
+      operationId: listPolicies
+      summary: List policies
+      description: >-
+        Retrieve a paginated list of insurance policies. Supports filtering by
+        product type, effective date, status, and policyholder.
+      tags:
+        - Policies
+      parameters:
+        - name: status
+          in: query
+          description: Filter by policy status
+          schema:
+            type: string
+            enum: [active, expired, cancelled, pending, lapsed]
+        - name: productType
+          in: query
+          description: Filter by insurance product type
+          schema:
+            type: string
+            enum: [auto, home, commercial, life, health, specialty]
+        - name: policyholderName
+          in: query
+          schema:
+            type: string
+        - name: effectiveDateFrom
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: effectiveDateTo
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 500
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Paginated list of policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createPolicy
+      summary: Create a new policy
+      description: >-
+        Initiate a new insurance policy. The system validates underwriting rules
+        and returns a policy number on success.
+      tags:
+        - Policies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCreateRequest'
+      responses:
+        '201':
+          description: Policy created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          description: Underwriting validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+  /policies/{policyNumber}:
+    get:
+      operationId: getPolicy
+      summary: Get a policy by policy number
+      description: Retrieve full details of a single policy including coverage, endorsements, and premium breakdown.
+      tags:
+        - Policies
+      parameters:
+        - name: policyNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updatePolicy
+      summary: Update (endorse) a policy
+      description: >-
+        Apply mid-term endorsements to an in-force policy such as coverage changes,
+        vehicle additions, or address updates.
+      tags:
+        - Policies
+      parameters:
+        - name: policyNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateRequest'
+      responses:
+        '200':
+          description: Policy updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '422':
+          description: Endorsement validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+  /policies/{policyNumber}/cancel:
+    post:
+      operationId: cancelPolicy
+      summary: Cancel a policy
+      description: Cancel an in-force policy with a cancellation reason and effective date.
+      tags:
+        - Policies
+      parameters:
+        - name: policyNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancellationRequest'
+      responses:
+        '200':
+          description: Policy cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+  /policies/{policyNumber}/renew:
+    post:
+      operationId: renewPolicy
+      summary: Renew a policy
+      description: Generate a renewal offer for a policy approaching its expiration date.
+      tags:
+        - Policies
+      parameters:
+        - name: policyNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                renewalDate:
+                  type: string
+                  format: date
+                premiumChangePct:
+                  type: number
+                  description: Percentage change in premium for the renewal term
+      responses:
+        '200':
+          description: Renewal offer generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+  /claims:
+    get:
+      operationId: listClaims
+      summary: List claims
+      description: Retrieve a paginated list of claims with optional filters.
+      tags:
+        - Claims
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [open, in_review, pending_payment, closed, denied]
+        - name: policyNumber
+          in: query
+          schema:
+            type: string
+        - name: claimDateFrom
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Paginated list of claims
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimListResponse'
+    post:
+      operationId: createClaim
+      summary: Create a new claim
+      description: Submit a first notice of loss (FNOL) for a policy.
+      tags:
+        - Claims
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimCreateRequest'
+      responses:
+        '201':
+          description: Claim created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Claim'
+  /claims/{claimNumber}:
+    get:
+      operationId: getClaim
+      summary: Get claim details
+      description: Retrieve full details of a claim including loss details, coverage, reserves, and payment history.
+      tags:
+        - Claims
+      parameters:
+        - name: claimNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Claim details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Claim'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /billing/accounts:
+    get:
+      operationId: listBillingAccounts
+      summary: List billing accounts
+      description: Retrieve billing accounts associated with policies.
+      tags:
+        - Billing
+      parameters:
+        - name: policyNumber
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: List of billing accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingAccountListResponse'
+  /billing/accounts/{accountId}/payments:
+    post:
+      operationId: recordPayment
+      summary: Record a payment
+      description: Record a premium payment against a billing account.
+      tags:
+        - Billing
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '201':
+          description: Payment recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /quotes:
+    post:
+      operationId: createQuote
+      summary: Generate an insurance quote
+      description: Submit applicant and risk data to receive a premium quote with coverage options.
+      tags:
+        - Distribution
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+      responses:
+        '200':
+          description: Quote generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+        '422':
+          description: Underwriting declination or missing required data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.majesco.example.com/oauth2/token
+          scopes:
+            read: Read access to policies, claims, and billing
+            write: Write access for policy and claim operations
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Policy:
+      type: object
+      properties:
+        policyNumber:
+          type: string
+          description: Unique policy number
+        status:
+          type: string
+          enum: [active, expired, cancelled, pending, lapsed]
+        productType:
+          type: string
+          enum: [auto, home, commercial, life, health, specialty]
+        effectiveDate:
+          type: string
+          format: date
+        expirationDate:
+          type: string
+          format: date
+        cancellationDate:
+          type: string
+          format: date
+        policyholder:
+          $ref: '#/components/schemas/Policyholder'
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coverage'
+        premium:
+          $ref: '#/components/schemas/Premium'
+        endorsements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Endorsement'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PolicyCreateRequest:
+      type: object
+      required:
+        - productType
+        - effectiveDate
+        - policyholder
+        - coverages
+      properties:
+        productType:
+          type: string
+          enum: [auto, home, commercial, life, health, specialty]
+        effectiveDate:
+          type: string
+          format: date
+        expirationDate:
+          type: string
+          format: date
+        policyholder:
+          $ref: '#/components/schemas/Policyholder'
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageRequest'
+        agentCode:
+          type: string
+        channelCode:
+          type: string
+    PolicyUpdateRequest:
+      type: object
+      properties:
+        endorsementType:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        changes:
+          type: object
+          additionalProperties: true
+    PolicyListResponse:
+      type: object
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
+        totalCount:
+          type: integer
+        nextPageToken:
+          type: string
+    Policyholder:
+      type: object
+      required:
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+          description: Two-letter US state code
+          pattern: '^[A-Z]{2}$'
+        postalCode:
+          type: string
+        country:
+          type: string
+          default: US
+    Coverage:
+      type: object
+      properties:
+        coverageCode:
+          type: string
+        coverageDescription:
+          type: string
+        limit:
+          type: number
+        deductible:
+          type: number
+        premium:
+          type: number
+        status:
+          type: string
+          enum: [active, excluded, suspended]
+    CoverageRequest:
+      type: object
+      required:
+        - coverageCode
+      properties:
+        coverageCode:
+          type: string
+        limit:
+          type: number
+        deductible:
+          type: number
+    Premium:
+      type: object
+      properties:
+        annualPremium:
+          type: number
+        taxAmount:
+          type: number
+        feesAmount:
+          type: number
+        totalPremium:
+          type: number
+        currency:
+          type: string
+          default: USD
+        billingFrequency:
+          type: string
+          enum: [annual, semi_annual, quarterly, monthly]
+    Endorsement:
+      type: object
+      properties:
+        endorsementNumber:
+          type: string
+        type:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        description:
+          type: string
+        premiumChange:
+          type: number
+    CancellationRequest:
+      type: object
+      required:
+        - effectiveDate
+        - reason
+      properties:
+        effectiveDate:
+          type: string
+          format: date
+        reason:
+          type: string
+          enum: [nonpayment, insured_request, underwriting, fraud, other]
+        notes:
+          type: string
+    Claim:
+      type: object
+      properties:
+        claimNumber:
+          type: string
+        policyNumber:
+          type: string
+        status:
+          type: string
+          enum: [open, in_review, pending_payment, closed, denied]
+        lossDate:
+          type: string
+          format: date
+        reportedDate:
+          type: string
+          format: date
+        lossType:
+          type: string
+        lossDescription:
+          type: string
+        claimant:
+          $ref: '#/components/schemas/Policyholder'
+        coveragesInvolved:
+          type: array
+          items:
+            type: string
+        totalReserved:
+          type: number
+        totalPaid:
+          type: number
+        adjusterName:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    ClaimCreateRequest:
+      type: object
+      required:
+        - policyNumber
+        - lossDate
+        - lossType
+      properties:
+        policyNumber:
+          type: string
+        lossDate:
+          type: string
+          format: date
+        lossType:
+          type: string
+        lossDescription:
+          type: string
+        claimantId:
+          type: string
+        contactPhone:
+          type: string
+    ClaimListResponse:
+      type: object
+      properties:
+        claims:
+          type: array
+          items:
+            $ref: '#/components/schemas/Claim'
+        totalCount:
+          type: integer
+        nextPageToken:
+          type: string
+    BillingAccount:
+      type: object
+      properties:
+        accountId:
+          type: string
+        policyNumber:
+          type: string
+        balance:
+          type: number
+        nextDueDate:
+          type: string
+          format: date
+        nextDueAmount:
+          type: number
+        billingMethod:
+          type: string
+          enum: [credit_card, ach, check, agency_bill]
+    BillingAccountListResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingAccount'
+        totalCount:
+          type: integer
+    PaymentRequest:
+      type: object
+      required:
+        - amount
+        - paymentMethod
+      properties:
+        amount:
+          type: number
+        paymentMethod:
+          type: string
+          enum: [credit_card, ach, check]
+        paymentDate:
+          type: string
+          format: date
+        referenceNumber:
+          type: string
+    Payment:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        accountId:
+          type: string
+        amount:
+          type: number
+        paymentDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [applied, pending, returned, voided]
+    QuoteRequest:
+      type: object
+      required:
+        - productType
+        - effectiveDate
+        - applicant
+      properties:
+        productType:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        applicant:
+          $ref: '#/components/schemas/Policyholder'
+        riskData:
+          type: object
+          additionalProperties: true
+          description: Product-specific risk data (vehicle, property, etc.)
+        requestedCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageRequest'
+    Quote:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        status:
+          type: string
+          enum: [quoted, declined, referred, expired]
+        totalPremium:
+          type: number
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coverage'
+        expiresAt:
+          type: string
+          format: date-time
+    ValidationError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        requestId:
+          type: string
+tags:
+  - name: Policies
+    description: Insurance policy lifecycle management
+  - name: Claims
+    description: Claims intake and management
+  - name: Billing
+    description: Premium billing and payment operations
+  - name: Distribution
+    description: Quote and bind operations for distribution channels
