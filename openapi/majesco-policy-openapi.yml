@@ -797,11 +797,11 @@ components:
         requestId:
           type: string
 tags:
-  - name: Policies
-    description: Insurance policy lifecycle management
-  - name: Claims
-    description: Claims intake and management
   - name: Billing
     description: Premium billing and payment operations
+  - name: Claims
+    description: Claims intake and management
   - name: Distribution
     description: Quote and bind operations for distribution channels
+  - name: Policies
+    description: Insurance policy lifecycle management
