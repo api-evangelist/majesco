@@ -1,10 +1,15 @@
-# Unknown (majesco)
+# Majesco (majesco)
+Majesco is a global leader of cloud insurance software solutions for insurance business transformation, helping insurance carriers innovate, modernize, and accelerate their digital strategies across P&C, L&A, and specialty lines.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/apis.yml)
 
+## Tags:
+
+ - Insurance, Policy, Claims, SaaS, Cloud
+
 ## Timestamps
 
-- **Modified:** 2026-03-18 
+- **Modified:** 2026-04-28 
 
 ## APIs
 
