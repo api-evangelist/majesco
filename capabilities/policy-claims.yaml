@@ -1,0 +1,169 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Majesco Insurance Policy Administration API — Claims
+  description: 'Majesco Insurance Policy Administration API — Claims. 3 operations. Lead operation: List claims. Self-contained
+    Naftiko capability covering one Majesco business surface.'
+  tags:
+  - Majesco
+  - Claims
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MAJESCO_API_KEY: MAJESCO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: policy-claims
+    baseUri: https://api.majesco.example.com/v1
+    description: Majesco Insurance Policy Administration API — Claims business capability. Self-contained, no shared references.
+    resources:
+    - name: claims
+      path: /claims
+      operations:
+      - name: listclaims
+        method: GET
+        description: List claims
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+        - name: policyNumber
+          in: query
+          type: string
+        - name: claimDateFrom
+          in: query
+          type: string
+        - name: pageSize
+          in: query
+          type: integer
+      - name: createclaim
+        method: POST
+        description: Create a new claim
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: claims-claimNumber
+      path: /claims/{claimNumber}
+      operations:
+      - name: getclaim
+        method: GET
+        description: Get claim details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: claimNumber
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.MAJESCO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: policy-claims-rest
+    port: 8080
+    description: REST adapter for Majesco Insurance Policy Administration API — Claims. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/claims
+      name: claims
+      description: REST surface for claims.
+      operations:
+      - method: GET
+        name: listclaims
+        description: List claims
+        call: policy-claims.listclaims
+        with:
+          status: rest.status
+          policyNumber: rest.policyNumber
+          claimDateFrom: rest.claimDateFrom
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createclaim
+        description: Create a new claim
+        call: policy-claims.createclaim
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/claims/{claimnumber}
+      name: claims-claimnumber
+      description: REST surface for claims-claimNumber.
+      operations:
+      - method: GET
+        name: getclaim
+        description: Get claim details
+        call: policy-claims.getclaim
+        with:
+          claimNumber: rest.claimNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: policy-claims-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Majesco Insurance Policy Administration API — Claims. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-claims
+      description: List claims
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: policy-claims.listclaims
+      with:
+        status: tools.status
+        policyNumber: tools.policyNumber
+        claimDateFrom: tools.claimDateFrom
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-claim
+      description: Create a new claim
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: policy-claims.createclaim
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-claim-details
+      description: Get claim details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: policy-claims.getclaim
+      with:
+        claimNumber: tools.claimNumber
+      outputParameters:
+      - type: object
+        mapping: $.

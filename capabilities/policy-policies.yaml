@@ -1,0 +1,323 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Majesco Insurance Policy Administration API — Policies
+  description: 'Majesco Insurance Policy Administration API — Policies. 6 operations. Lead operation: List policies. Self-contained
+    Naftiko capability covering one Majesco business surface.'
+  tags:
+  - Majesco
+  - Policies
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MAJESCO_API_KEY: MAJESCO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: policy-policies
+    baseUri: https://api.majesco.example.com/v1
+    description: Majesco Insurance Policy Administration API — Policies business capability. Self-contained, no shared references.
+    resources:
+    - name: policies
+      path: /policies
+      operations:
+      - name: listpolicies
+        method: GET
+        description: List policies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by policy status
+        - name: productType
+          in: query
+          type: string
+          description: Filter by insurance product type
+        - name: policyholderName
+          in: query
+          type: string
+        - name: effectiveDateFrom
+          in: query
+          type: string
+        - name: effectiveDateTo
+          in: query
+          type: string
+        - name: pageSize
+          in: query
+          type: integer
+        - name: pageToken
+          in: query
+          type: string
+      - name: createpolicy
+        method: POST
+        description: Create a new policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: policies-policyNumber
+      path: /policies/{policyNumber}
+      operations:
+      - name: getpolicy
+        method: GET
+        description: Get a policy by policy number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policyNumber
+          in: path
+          type: string
+          required: true
+      - name: updatepolicy
+        method: PATCH
+        description: Update (endorse) a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policyNumber
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: policies-policyNumber-cancel
+      path: /policies/{policyNumber}/cancel
+      operations:
+      - name: cancelpolicy
+        method: POST
+        description: Cancel a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policyNumber
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: policies-policyNumber-renew
+      path: /policies/{policyNumber}/renew
+      operations:
+      - name: renewpolicy
+        method: POST
+        description: Renew a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policyNumber
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.MAJESCO_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: policy-policies-rest
+    port: 8080
+    description: REST adapter for Majesco Insurance Policy Administration API — Policies. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/policies
+      name: policies
+      description: REST surface for policies.
+      operations:
+      - method: GET
+        name: listpolicies
+        description: List policies
+        call: policy-policies.listpolicies
+        with:
+          status: rest.status
+          productType: rest.productType
+          policyholderName: rest.policyholderName
+          effectiveDateFrom: rest.effectiveDateFrom
+          effectiveDateTo: rest.effectiveDateTo
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpolicy
+        description: Create a new policy
+        call: policy-policies.createpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/policies/{policynumber}
+      name: policies-policynumber
+      description: REST surface for policies-policyNumber.
+      operations:
+      - method: GET
+        name: getpolicy
+        description: Get a policy by policy number
+        call: policy-policies.getpolicy
+        with:
+          policyNumber: rest.policyNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatepolicy
+        description: Update (endorse) a policy
+        call: policy-policies.updatepolicy
+        with:
+          policyNumber: rest.policyNumber
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/policies/{policynumber}/cancel
+      name: policies-policynumber-cancel
+      description: REST surface for policies-policyNumber-cancel.
+      operations:
+      - method: POST
+        name: cancelpolicy
+        description: Cancel a policy
+        call: policy-policies.cancelpolicy
+        with:
+          policyNumber: rest.policyNumber
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/policies/{policynumber}/renew
+      name: policies-policynumber-renew
+      description: REST surface for policies-policyNumber-renew.
+      operations:
+      - method: POST
+        name: renewpolicy
+        description: Renew a policy
+        call: policy-policies.renewpolicy
+        with:
+          policyNumber: rest.policyNumber
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: policy-policies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Majesco Insurance Policy Administration API — Policies. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: list-policies
+      description: List policies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: policy-policies.listpolicies
+      with:
+        status: tools.status
+        productType: tools.productType
+        policyholderName: tools.policyholderName
+        effectiveDateFrom: tools.effectiveDateFrom
+        effectiveDateTo: tools.effectiveDateTo
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-policy
+      description: Create a new policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: policy-policies.createpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-policy-policy-number
+      description: Get a policy by policy number
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: policy-policies.getpolicy
+      with:
+        policyNumber: tools.policyNumber
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-endorse-policy
+      description: Update (endorse) a policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: policy-policies.updatepolicy
+      with:
+        policyNumber: tools.policyNumber
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-policy
+      description: Cancel a policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: policy-policies.cancelpolicy
+      with:
+        policyNumber: tools.policyNumber
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: renew-policy
+      description: Renew a policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: policy-policies.renewpolicy
+      with:
+        policyNumber: tools.policyNumber
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
