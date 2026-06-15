@@ -1,0 +1,1037 @@
+"""
+Majesco Insurance SaaS GraphQL API Schema
+Covers policy administration, billing, claims, underwriting, agency management,
+product configuration, and analytics for life, annuity, P&C, and group insurance lines.
+"""
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+# ---------------------------------------------------------------------------
+# Root Types
+# ---------------------------------------------------------------------------
+
+type Query {
+  # Policy
+  policy(id: ID!): Policy
+  policies(filter: PolicyFilter, page: Int, pageSize: Int): PolicyConnection
+
+  # Claims
+  claim(id: ID!): Claim
+  claims(filter: ClaimFilter, page: Int, pageSize: Int): ClaimConnection
+
+  # Billing
+  billingAccount(id: ID!): BillingAccount
+  billingAccounts(filter: BillingAccountFilter, page: Int, pageSize: Int): BillingAccountConnection
+  invoice(id: ID!): Invoice
+  invoices(accountId: ID!, page: Int, pageSize: Int): InvoiceConnection
+
+  # Underwriting
+  application(id: ID!): Application
+  applications(filter: ApplicationFilter, page: Int, pageSize: Int): ApplicationConnection
+  riskScore(applicationId: ID!): RiskScore
+
+  # Agency / Distribution
+  agency(id: ID!): Agency
+  agencies(filter: AgencyFilter, page: Int, pageSize: Int): AgencyConnection
+  agent(id: ID!): Agent
+  agents(agencyId: ID!, page: Int, pageSize: Int): AgentConnection
+
+  # Product Catalog
+  product(id: ID!): InsuranceProduct
+  products(filter: ProductFilter, page: Int, pageSize: Int): InsuranceProductConnection
+  coverageType(id: ID!): CoverageType
+  coverageTypes(lineOfBusiness: LineOfBusiness): [CoverageType!]!
+
+  # Customer / Party
+  customer(id: ID!): Customer
+  customers(filter: CustomerFilter, page: Int, pageSize: Int): CustomerConnection
+
+  # Analytics
+  analyticsReport(id: ID!): AnalyticsReport
+  lossRatioSummary(filter: LossRatioFilter): LossRatioSummary
+  premiumSummary(filter: PremiumSummaryFilter): PremiumSummary
+}
+
+type Mutation {
+  # Policy
+  createPolicy(input: CreatePolicyInput!): PolicyPayload!
+  updatePolicy(id: ID!, input: UpdatePolicyInput!): PolicyPayload!
+  cancelPolicy(id: ID!, reason: String!): PolicyPayload!
+  renewPolicy(id: ID!): PolicyPayload!
+  endorsePolicy(id: ID!, input: EndorsementInput!): EndorsementPayload!
+
+  # Claims
+  submitClaim(input: SubmitClaimInput!): ClaimPayload!
+  updateClaim(id: ID!, input: UpdateClaimInput!): ClaimPayload!
+  assignClaim(id: ID!, adjusterId: ID!): ClaimPayload!
+  settleClaim(id: ID!, input: SettleClaimInput!): ClaimPayload!
+  closeClaim(id: ID!, reason: String!): ClaimPayload!
+
+  # Billing
+  createBillingAccount(input: CreateBillingAccountInput!): BillingAccountPayload!
+  issueInvoice(accountId: ID!, input: IssueInvoiceInput!): InvoicePayload!
+  recordPayment(input: RecordPaymentInput!): PaymentPayload!
+  applyCredit(accountId: ID!, amount: Float!, note: String): BillingAccountPayload!
+
+  # Underwriting
+  submitApplication(input: SubmitApplicationInput!): ApplicationPayload!
+  approveApplication(id: ID!, note: String): ApplicationPayload!
+  declineApplication(id: ID!, reason: String!): ApplicationPayload!
+  requestMoreInfo(id: ID!, questions: [String!]!): ApplicationPayload!
+
+  # Agency
+  createAgency(input: CreateAgencyInput!): AgencyPayload!
+  updateAgency(id: ID!, input: UpdateAgencyInput!): AgencyPayload!
+  createAgent(input: CreateAgentInput!): AgentPayload!
+  updateAgent(id: ID!, input: UpdateAgentInput!): AgentPayload!
+  assignAgentToPolicy(agentId: ID!, policyId: ID!): PolicyPayload!
+}
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar Date
+scalar DateTime
+scalar Money
+scalar JSON
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum LineOfBusiness {
+  PROPERTY_AND_CASUALTY
+  LIFE
+  ANNUITY
+  GROUP
+  SPECIALTY
+  HEALTH
+}
+
+enum PolicyStatus {
+  DRAFT
+  PENDING
+  ACTIVE
+  CANCELLED
+  EXPIRED
+  LAPSED
+  REINSTATED
+  SUSPENDED
+}
+
+enum ClaimStatus {
+  REPORTED
+  UNDER_INVESTIGATION
+  PENDING_DOCUMENTATION
+  IN_REVIEW
+  APPROVED
+  PARTIALLY_APPROVED
+  DENIED
+  SETTLED
+  CLOSED
+  REOPENED
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SUBMITTED
+  IN_REVIEW
+  PENDING_INFO
+  APPROVED
+  DECLINED
+  REFERRED
+  BOUND
+  WITHDRAWN
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSED
+  FAILED
+  REVERSED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  ACH
+  CREDIT_CARD
+  CHECK
+  WIRE_TRANSFER
+  ELECTRONIC_FUNDS_TRANSFER
+}
+
+enum BillingFrequency {
+  MONTHLY
+  QUARTERLY
+  SEMI_ANNUAL
+  ANNUAL
+  SINGLE_PREMIUM
+}
+
+enum AgencyStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  TERMINATED
+}
+
+enum AgentLicenseStatus {
+  ACTIVE
+  EXPIRED
+  SUSPENDED
+  REVOKED
+}
+
+enum CoverageCategory {
+  LIABILITY
+  PROPERTY
+  CASUALTY
+  LIFE
+  HEALTH
+  DISABILITY
+  ANNUITY
+  REINSURANCE
+}
+
+enum EndorsementType {
+  ADDITION
+  REMOVAL
+  CHANGE
+  CORRECTION
+}
+
+enum ClaimType {
+  PROPERTY_DAMAGE
+  BODILY_INJURY
+  LIABILITY
+  THEFT
+  NATURAL_DISASTER
+  MEDICAL
+  DEATH_BENEFIT
+  DISABILITY
+  TOTAL_LOSS
+}
+
+# ---------------------------------------------------------------------------
+# Core Domain Types
+# ---------------------------------------------------------------------------
+
+type Policy {
+  id: ID!
+  policyNumber: String!
+  status: PolicyStatus!
+  lineOfBusiness: LineOfBusiness!
+  product: InsuranceProduct!
+  customer: Customer!
+  agent: Agent
+  agency: Agency
+  effectiveDate: Date!
+  expirationDate: Date!
+  renewalDate: Date
+  premium: Money!
+  billingFrequency: BillingFrequency!
+  coverages: [Coverage!]!
+  endorsements: [Endorsement!]!
+  claims: [Claim!]!
+  insuredRisks: [InsuredRisk!]!
+  billingAccount: BillingAccount
+  documents: [Document!]!
+  underwritingDetails: UnderwritingDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PolicyConnection {
+  nodes: [Policy!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Claim {
+  id: ID!
+  claimNumber: String!
+  policy: Policy!
+  claimType: ClaimType!
+  status: ClaimStatus!
+  reportedDate: DateTime!
+  incidentDate: Date!
+  incidentDescription: String!
+  claimant: Claimant!
+  adjuster: ClaimsAdjuster
+  estimatedLoss: Money
+  approvedAmount: Money
+  paidAmount: Money
+  reserveAmount: Money
+  documents: [Document!]!
+  notes: [ClaimNote!]!
+  activities: [ClaimActivity!]!
+  settlement: ClaimSettlement
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ClaimConnection {
+  nodes: [Claim!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type BillingAccount {
+  id: ID!
+  accountNumber: String!
+  policy: Policy!
+  customer: Customer!
+  balance: Money!
+  creditBalance: Money!
+  billingFrequency: BillingFrequency!
+  paymentMethod: PaymentMethod
+  autopay: Boolean!
+  invoices: [Invoice!]!
+  payments: [Payment!]!
+  nextDueDate: Date
+  pastDueAmount: Money!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type BillingAccountConnection {
+  nodes: [BillingAccount!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Invoice {
+  id: ID!
+  invoiceNumber: String!
+  billingAccount: BillingAccount!
+  amount: Money!
+  dueDate: Date!
+  issuedDate: Date!
+  status: PaymentStatus!
+  lineItems: [InvoiceLineItem!]!
+  payments: [Payment!]!
+  createdAt: DateTime!
+}
+
+type InvoiceConnection {
+  nodes: [Invoice!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Application {
+  id: ID!
+  applicationNumber: String!
+  status: ApplicationStatus!
+  lineOfBusiness: LineOfBusiness!
+  product: InsuranceProduct!
+  applicant: Customer!
+  agent: Agent
+  agency: Agency
+  submittedDate: DateTime
+  decisionDate: DateTime
+  requestedEffectiveDate: Date
+  coverageRequests: [CoverageRequest!]!
+  riskData: JSON
+  riskScore: RiskScore
+  underwritingNotes: [UnderwritingNote!]!
+  documents: [Document!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ApplicationConnection {
+  nodes: [Application!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Agency {
+  id: ID!
+  agencyCode: String!
+  name: String!
+  status: AgencyStatus!
+  address: Address!
+  phone: String
+  email: String
+  website: String
+  agents: [Agent!]!
+  commissionRate: Float
+  appointedCarriers: [String!]!
+  licenses: [AgencyLicense!]!
+  policies: [Policy!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type AgencyConnection {
+  nodes: [Agency!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Agent {
+  id: ID!
+  agentCode: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String
+  agency: Agency!
+  licenses: [AgentLicense!]!
+  policies: [Policy!]!
+  npn: String
+  commissionRate: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type AgentConnection {
+  nodes: [Agent!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Customer {
+  id: ID!
+  customerNumber: String!
+  firstName: String
+  lastName: String
+  companyName: String
+  dateOfBirth: Date
+  taxId: String
+  email: String!
+  phone: String
+  address: Address!
+  policies: [Policy!]!
+  claims: [Claim!]!
+  billingAccounts: [BillingAccount!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type CustomerConnection {
+  nodes: [Customer!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type InsuranceProduct {
+  id: ID!
+  productCode: String!
+  name: String!
+  description: String
+  lineOfBusiness: LineOfBusiness!
+  availableCoverages: [CoverageType!]!
+  baseRate: Money
+  minimumPremium: Money
+  ratingFactors: [RatingFactor!]!
+  eligibilityRules: [EligibilityRule!]!
+  isActive: Boolean!
+  effectiveDate: Date!
+  expirationDate: Date
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type InsuranceProductConnection {
+  nodes: [InsuranceProduct!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Coverage {
+  id: ID!
+  coverageType: CoverageType!
+  limit: Money!
+  deductible: Money
+  premium: Money!
+  description: String
+  endorsements: [Endorsement!]!
+}
+
+type CoverageType {
+  id: ID!
+  code: String!
+  name: String!
+  description: String
+  category: CoverageCategory!
+  lineOfBusiness: LineOfBusiness!
+  isStandard: Boolean!
+}
+
+type Endorsement {
+  id: ID!
+  endorsementNumber: String!
+  type: EndorsementType!
+  effectiveDate: Date!
+  description: String!
+  premiumChange: Money!
+  coverage: Coverage
+  approvedBy: String
+  createdAt: DateTime!
+}
+
+type InsuredRisk {
+  id: ID!
+  riskType: String!
+  description: String!
+  location: Address
+  value: Money
+  riskData: JSON
+}
+
+type Claimant {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String
+  phone: String
+  address: Address
+  relationToInsured: String
+}
+
+type ClaimsAdjuster {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String
+  licenseNumber: String
+  assignedClaims: [Claim!]!
+}
+
+type ClaimNote {
+  id: ID!
+  content: String!
+  author: String!
+  createdAt: DateTime!
+  isInternal: Boolean!
+}
+
+type ClaimActivity {
+  id: ID!
+  activityType: String!
+  description: String!
+  performedBy: String!
+  performedAt: DateTime!
+}
+
+type ClaimSettlement {
+  id: ID!
+  claim: Claim!
+  amount: Money!
+  settledDate: Date!
+  paymentMethod: PaymentMethod!
+  payeeAccount: String
+  description: String
+}
+
+type Payment {
+  id: ID!
+  paymentNumber: String!
+  amount: Money!
+  paymentDate: DateTime!
+  paymentMethod: PaymentMethod!
+  status: PaymentStatus!
+  referenceNumber: String
+  invoice: Invoice
+  billingAccount: BillingAccount!
+}
+
+type InvoiceLineItem {
+  id: ID!
+  description: String!
+  amount: Money!
+  quantity: Int!
+  unitPrice: Money!
+  coverageCode: String
+}
+
+type RiskScore {
+  applicationId: ID!
+  score: Float!
+  rating: String!
+  factors: [RiskFactor!]!
+  calculatedAt: DateTime!
+  recommendation: String
+}
+
+type RiskFactor {
+  name: String!
+  weight: Float!
+  value: String!
+  impact: String!
+}
+
+type UnderwritingDetails {
+  applicationId: ID
+  underwriterId: String
+  underwriterName: String
+  decisionDate: DateTime
+  approvedPremium: Money
+  conditions: [String!]!
+  exclusions: [String!]!
+  notes: [UnderwritingNote!]!
+}
+
+type UnderwritingNote {
+  id: ID!
+  content: String!
+  author: String!
+  createdAt: DateTime!
+}
+
+type CoverageRequest {
+  coverageTypeId: ID!
+  requestedLimit: Money!
+  requestedDeductible: Money
+}
+
+type RatingFactor {
+  id: ID!
+  name: String!
+  description: String
+  factorType: String!
+  values: [String!]!
+}
+
+type EligibilityRule {
+  id: ID!
+  name: String!
+  description: String!
+  ruleExpression: String!
+}
+
+type AgencyLicense {
+  id: ID!
+  licenseNumber: String!
+  state: String!
+  lineOfBusiness: LineOfBusiness!
+  status: AgentLicenseStatus!
+  issueDate: Date!
+  expirationDate: Date!
+}
+
+type AgentLicense {
+  id: ID!
+  licenseNumber: String!
+  state: String!
+  lineOfBusiness: LineOfBusiness!
+  status: AgentLicenseStatus!
+  issueDate: Date!
+  expirationDate: Date!
+  npn: String
+}
+
+type Document {
+  id: ID!
+  name: String!
+  documentType: String!
+  url: String!
+  mimeType: String!
+  uploadedAt: DateTime!
+  uploadedBy: String
+  size: Int
+}
+
+type Address {
+  street1: String!
+  street2: String
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+  latitude: Float
+  longitude: Float
+}
+
+# ---------------------------------------------------------------------------
+# Analytics Types
+# ---------------------------------------------------------------------------
+
+type AnalyticsReport {
+  id: ID!
+  name: String!
+  reportType: String!
+  generatedAt: DateTime!
+  parameters: JSON
+  data: JSON!
+  summary: ReportSummary
+}
+
+type ReportSummary {
+  totalPolicies: Int
+  totalPremium: Money
+  totalClaims: Int
+  totalClaimsPaid: Money
+  lossRatio: Float
+  periodStart: Date
+  periodEnd: Date
+}
+
+type LossRatioSummary {
+  lineOfBusiness: LineOfBusiness
+  earnedPremium: Money!
+  incurredLosses: Money!
+  lossRatio: Float!
+  periodStart: Date!
+  periodEnd: Date!
+  breakdown: [LossRatioBreakdown!]!
+}
+
+type LossRatioBreakdown {
+  category: String!
+  earnedPremium: Money!
+  incurredLosses: Money!
+  lossRatio: Float!
+}
+
+type PremiumSummary {
+  totalWrittenPremium: Money!
+  totalEarnedPremium: Money!
+  totalInForcePremium: Money!
+  periodStart: Date!
+  periodEnd: Date!
+  byLineOfBusiness: [PremiumByLine!]!
+  byProduct: [PremiumByProduct!]!
+}
+
+type PremiumByLine {
+  lineOfBusiness: LineOfBusiness!
+  writtenPremium: Money!
+  earnedPremium: Money!
+  policyCount: Int!
+}
+
+type PremiumByProduct {
+  product: InsuranceProduct!
+  writtenPremium: Money!
+  earnedPremium: Money!
+  policyCount: Int!
+}
+
+# ---------------------------------------------------------------------------
+# Payload Types (Mutation responses)
+# ---------------------------------------------------------------------------
+
+type PolicyPayload {
+  policy: Policy
+  errors: [UserError!]!
+}
+
+type ClaimPayload {
+  claim: Claim
+  errors: [UserError!]!
+}
+
+type BillingAccountPayload {
+  billingAccount: BillingAccount
+  errors: [UserError!]!
+}
+
+type InvoicePayload {
+  invoice: Invoice
+  errors: [UserError!]!
+}
+
+type PaymentPayload {
+  payment: Payment
+  errors: [UserError!]!
+}
+
+type ApplicationPayload {
+  application: Application
+  errors: [UserError!]!
+}
+
+type AgencyPayload {
+  agency: Agency
+  errors: [UserError!]!
+}
+
+type AgentPayload {
+  agent: Agent
+  errors: [UserError!]!
+}
+
+type EndorsementPayload {
+  endorsement: Endorsement
+  policy: Policy
+  errors: [UserError!]!
+}
+
+# ---------------------------------------------------------------------------
+# Common Types
+# ---------------------------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  totalPages: Int!
+}
+
+type UserError {
+  field: String
+  message: String!
+  code: String
+}
+
+# ---------------------------------------------------------------------------
+# Input Types
+# ---------------------------------------------------------------------------
+
+input PolicyFilter {
+  status: PolicyStatus
+  lineOfBusiness: LineOfBusiness
+  customerId: ID
+  agentId: ID
+  agencyId: ID
+  productId: ID
+  effectiveDateFrom: Date
+  effectiveDateTo: Date
+  expirationDateFrom: Date
+  expirationDateTo: Date
+}
+
+input CreatePolicyInput {
+  productId: ID!
+  customerId: ID!
+  agentId: ID
+  agencyId: ID
+  effectiveDate: Date!
+  expirationDate: Date!
+  billingFrequency: BillingFrequency!
+  coverages: [CoverageInput!]!
+  insuredRisks: [InsuredRiskInput!]
+}
+
+input UpdatePolicyInput {
+  agentId: ID
+  billingFrequency: BillingFrequency
+  coverages: [CoverageInput!]
+}
+
+input CoverageInput {
+  coverageTypeId: ID!
+  limit: Money!
+  deductible: Money
+}
+
+input InsuredRiskInput {
+  riskType: String!
+  description: String!
+  location: AddressInput
+  value: Money
+  riskData: JSON
+}
+
+input EndorsementInput {
+  type: EndorsementType!
+  effectiveDate: Date!
+  description: String!
+  coverageId: ID
+  coverageChange: CoverageInput
+}
+
+input ClaimFilter {
+  status: ClaimStatus
+  claimType: ClaimType
+  policyId: ID
+  customerId: ID
+  adjusterId: ID
+  reportedDateFrom: DateTime
+  reportedDateTo: DateTime
+}
+
+input SubmitClaimInput {
+  policyId: ID!
+  claimType: ClaimType!
+  incidentDate: Date!
+  incidentDescription: String!
+  claimant: ClaimantInput!
+  estimatedLoss: Money
+  documents: [DocumentInput!]
+}
+
+input UpdateClaimInput {
+  status: ClaimStatus
+  estimatedLoss: Money
+  approvedAmount: Money
+  reserveAmount: Money
+  incidentDescription: String
+}
+
+input SettleClaimInput {
+  amount: Money!
+  paymentMethod: PaymentMethod!
+  payeeAccount: String
+  description: String
+}
+
+input ClaimantInput {
+  firstName: String!
+  lastName: String!
+  email: String
+  phone: String
+  address: AddressInput
+  relationToInsured: String
+}
+
+input BillingAccountFilter {
+  customerId: ID
+  policyId: ID
+  hasBalance: Boolean
+  pastDue: Boolean
+}
+
+input CreateBillingAccountInput {
+  policyId: ID!
+  customerId: ID!
+  billingFrequency: BillingFrequency!
+  paymentMethod: PaymentMethod
+  autopay: Boolean
+}
+
+input IssueInvoiceInput {
+  amount: Money!
+  dueDate: Date!
+  lineItems: [InvoiceLineItemInput!]!
+}
+
+input InvoiceLineItemInput {
+  description: String!
+  amount: Money!
+  quantity: Int!
+  unitPrice: Money!
+  coverageCode: String
+}
+
+input RecordPaymentInput {
+  billingAccountId: ID!
+  invoiceId: ID
+  amount: Money!
+  paymentMethod: PaymentMethod!
+  paymentDate: DateTime
+  referenceNumber: String
+}
+
+input ApplicationFilter {
+  status: ApplicationStatus
+  lineOfBusiness: LineOfBusiness
+  applicantId: ID
+  agentId: ID
+  agencyId: ID
+  submittedDateFrom: DateTime
+  submittedDateTo: DateTime
+}
+
+input SubmitApplicationInput {
+  productId: ID!
+  applicantId: ID!
+  agentId: ID
+  agencyId: ID
+  requestedEffectiveDate: Date
+  coverageRequests: [CoverageRequestInput!]!
+  riskData: JSON
+  documents: [DocumentInput!]
+}
+
+input CoverageRequestInput {
+  coverageTypeId: ID!
+  requestedLimit: Money!
+  requestedDeductible: Money
+}
+
+input AgencyFilter {
+  status: AgencyStatus
+  state: String
+  lineOfBusiness: LineOfBusiness
+}
+
+input CreateAgencyInput {
+  agencyCode: String!
+  name: String!
+  address: AddressInput!
+  phone: String
+  email: String
+  website: String
+  commissionRate: Float
+}
+
+input UpdateAgencyInput {
+  name: String
+  address: AddressInput
+  phone: String
+  email: String
+  website: String
+  commissionRate: Float
+  status: AgencyStatus
+}
+
+input CreateAgentInput {
+  agentCode: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String
+  agencyId: ID!
+  npn: String
+  commissionRate: Float
+}
+
+input UpdateAgentInput {
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  commissionRate: Float
+}
+
+input ProductFilter {
+  lineOfBusiness: LineOfBusiness
+  isActive: Boolean
+}
+
+input CustomerFilter {
+  email: String
+  taxId: String
+  lastName: String
+  state: String
+}
+
+input AddressInput {
+  street1: String!
+  street2: String
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+}
+
+input DocumentInput {
+  name: String!
+  documentType: String!
+  url: String!
+  mimeType: String!
+}
+
+input LossRatioFilter {
+  lineOfBusiness: LineOfBusiness
+  periodStart: Date!
+  periodEnd: Date!
+}
+
+input PremiumSummaryFilter {
+  lineOfBusiness: LineOfBusiness
+  productId: ID
+  agencyId: ID
+  periodStart: Date!
+  periodEnd: Date!
+}
