@@ -1,0 +1,328 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Majesco Insurance Policy Administration API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.majesco.example.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.majesco.example.com/v1/policies",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by policy status"
+              },
+              {
+                "name": "productType",
+                "value": "",
+                "type": "query",
+                "description": "Filter by insurance product type"
+              },
+              {
+                "name": "policyholderName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "effectiveDateFrom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "effectiveDateTo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of insurance policies. Supports filtering by product type, effective date, status, and policyholder."
+        },
+        {
+          "info": {
+            "name": "Create a new policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.majesco.example.com/v1/policies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate a new insurance policy. The system validates underwriting rules and returns a policy number on success."
+        },
+        {
+          "info": {
+            "name": "Get a policy by policy number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.majesco.example.com/v1/policies/:policyNumber",
+            "params": [
+              {
+                "name": "policyNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve full details of a single policy including coverage, endorsements, and premium breakdown."
+        },
+        {
+          "info": {
+            "name": "Update (endorse) a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.majesco.example.com/v1/policies/:policyNumber",
+            "params": [
+              {
+                "name": "policyNumber",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply mid-term endorsements to an in-force policy such as coverage changes, vehicle additions, or address updates."
+        },
+        {
+          "info": {
+            "name": "Cancel a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.majesco.example.com/v1/policies/:policyNumber/cancel",
+            "params": [
+              {
+                "name": "policyNumber",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel an in-force policy with a cancellation reason and effective date."
+        },
+        {
+          "info": {
+            "name": "Renew a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.majesco.example.com/v1/policies/:policyNumber/renew",
+            "params": [
+              {
+                "name": "policyNumber",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a renewal offer for a policy approaching its expiration date."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Claims",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.majesco.example.com/v1/claims",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "policyNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "claimDateFrom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of claims with optional filters."
+        },
+        {
+          "info": {
+            "name": "Create a new claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.majesco.example.com/v1/claims",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a first notice of loss (FNOL) for a policy."
+        },
+        {
+          "info": {
+            "name": "Get claim details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.majesco.example.com/v1/claims/:claimNumber",
+            "params": [
+              {
+                "name": "claimNumber",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve full details of a claim including loss details, coverage, reserves, and payment history."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List billing accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.majesco.example.com/v1/billing/accounts",
+            "params": [
+              {
+                "name": "policyNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve billing accounts associated with policies."
+        },
+        {
+          "info": {
+            "name": "Record a payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.majesco.example.com/v1/billing/accounts/:accountId/payments",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Record a premium payment against a billing account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Distribution",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate an insurance quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.majesco.example.com/v1/quotes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit applicant and risk data to receive a premium quote with coverage options."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
