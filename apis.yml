@@ -27,6 +27,8 @@ apis:
     claims management, billing, and distribution. APIs enable digital insurance operations
     across P&C, L&A, and specialty lines with modern REST interfaces.
 common:
+- type: OAuthScopes
+  url: scopes/majesco-scopes.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/majesco
 - url: https://www.majesco.com/

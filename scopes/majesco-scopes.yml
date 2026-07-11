@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/majesco-policy-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/majesco-policy-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.majesco.example.com/oauth2/token
+scopes:
+- scope: read
+  description: Read access to policies, claims, and billing
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/majesco-policy-openapi.yml
+- scope: write
+  description: Write access for policy and claim operations
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/majesco-policy-openapi.yml
