@@ -27,6 +27,8 @@ apis:
     claims management, billing, and distribution. APIs enable digital insurance operations
     across P&C, L&A, and specialty lines with modern REST interfaces.
 common:
+- type: AgenticAccess
+  url: agentic-access/majesco-agentic-access.yml
 - type: TrustCenter
   url: security/majesco-trust-center.yml
 - type: DomainSecurity
