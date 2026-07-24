@@ -1,0 +1,243 @@
+openapi: 3.1.0
+info:
+  title: Majesco Insurance Policy Administration Billing Claims API
+  description: Majesco cloud-based insurance platform API for policy administration, claims management, billing, and distribution. Supports P&C, L&A, and specialty lines with REST interfaces for digital insurance operations.
+  version: 1.0.0
+  contact:
+    name: Majesco Support
+    url: https://www.majesco.com/contact/
+  license:
+    name: Proprietary
+    url: https://www.majesco.com/terms
+servers:
+- url: https://api.majesco.example.com/v1
+  description: Majesco API (customer-specific tenant URL)
+security:
+- OAuth2:
+  - read
+  - write
+tags:
+- name: Claims
+  description: Claims intake and management
+paths:
+  /claims:
+    get:
+      operationId: listClaims
+      summary: List claims
+      description: Retrieve a paginated list of claims with optional filters.
+      tags:
+      - Claims
+      parameters:
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - open
+          - in_review
+          - pending_payment
+          - closed
+          - denied
+      - name: policyNumber
+        in: query
+        schema:
+          type: string
+      - name: claimDateFrom
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: Paginated list of claims
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaimListResponse'
+    post:
+      operationId: createClaim
+      summary: Create a new claim
+      description: Submit a first notice of loss (FNOL) for a policy.
+      tags:
+      - Claims
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimCreateRequest'
+      responses:
+        '201':
+          description: Claim created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Claim'
+  /claims/{claimNumber}:
+    get:
+      operationId: getClaim
+      summary: Get claim details
+      description: Retrieve full details of a claim including loss details, coverage, reserves, and payment history.
+      tags:
+      - Claims
+      parameters:
+      - name: claimNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Claim details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Claim'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    ClaimCreateRequest:
+      type: object
+      required:
+      - policyNumber
+      - lossDate
+      - lossType
+      properties:
+        policyNumber:
+          type: string
+        lossDate:
+          type: string
+          format: date
+        lossType:
+          type: string
+        lossDescription:
+          type: string
+        claimantId:
+          type: string
+        contactPhone:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        requestId:
+          type: string
+    ClaimListResponse:
+      type: object
+      properties:
+        claims:
+          type: array
+          items:
+            $ref: '#/components/schemas/Claim'
+        totalCount:
+          type: integer
+        nextPageToken:
+          type: string
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+          description: Two-letter US state code
+          pattern: ^[A-Z]{2}$
+        postalCode:
+          type: string
+        country:
+          type: string
+          default: US
+    Policyholder:
+      type: object
+      required:
+      - firstName
+      - lastName
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Claim:
+      type: object
+      properties:
+        claimNumber:
+          type: string
+        policyNumber:
+          type: string
+        status:
+          type: string
+          enum:
+          - open
+          - in_review
+          - pending_payment
+          - closed
+          - denied
+        lossDate:
+          type: string
+          format: date
+        reportedDate:
+          type: string
+          format: date
+        lossType:
+          type: string
+        lossDescription:
+          type: string
+        claimant:
+          $ref: '#/components/schemas/Policyholder'
+        coveragesInvolved:
+          type: array
+          items:
+            type: string
+        totalReserved:
+          type: number
+        totalPaid:
+          type: number
+        adjusterName:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.majesco.example.com/oauth2/token
+          scopes:
+            read: Read access to policies, claims, and billing
+            write: Write access for policy and claim operations
+externalDocs:
+  description: Majesco Developer Portal
+  url: https://www.majesco.com/

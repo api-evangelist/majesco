@@ -1,0 +1,154 @@
+openapi: 3.1.0
+info:
+  title: Majesco Insurance Policy Administration Billing API
+  description: Majesco cloud-based insurance platform API for policy administration, claims management, billing, and distribution. Supports P&C, L&A, and specialty lines with REST interfaces for digital insurance operations.
+  version: 1.0.0
+  contact:
+    name: Majesco Support
+    url: https://www.majesco.com/contact/
+  license:
+    name: Proprietary
+    url: https://www.majesco.com/terms
+servers:
+- url: https://api.majesco.example.com/v1
+  description: Majesco API (customer-specific tenant URL)
+security:
+- OAuth2:
+  - read
+  - write
+tags:
+- name: Billing
+  description: Premium billing and payment operations
+paths:
+  /billing/accounts:
+    get:
+      operationId: listBillingAccounts
+      summary: List billing accounts
+      description: Retrieve billing accounts associated with policies.
+      tags:
+      - Billing
+      parameters:
+      - name: policyNumber
+        in: query
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: List of billing accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingAccountListResponse'
+  /billing/accounts/{accountId}/payments:
+    post:
+      operationId: recordPayment
+      summary: Record a payment
+      description: Record a premium payment against a billing account.
+      tags:
+      - Billing
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '201':
+          description: Payment recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+components:
+  schemas:
+    BillingAccount:
+      type: object
+      properties:
+        accountId:
+          type: string
+        policyNumber:
+          type: string
+        balance:
+          type: number
+        nextDueDate:
+          type: string
+          format: date
+        nextDueAmount:
+          type: number
+        billingMethod:
+          type: string
+          enum:
+          - credit_card
+          - ach
+          - check
+          - agency_bill
+    PaymentRequest:
+      type: object
+      required:
+      - amount
+      - paymentMethod
+      properties:
+        amount:
+          type: number
+        paymentMethod:
+          type: string
+          enum:
+          - credit_card
+          - ach
+          - check
+        paymentDate:
+          type: string
+          format: date
+        referenceNumber:
+          type: string
+    Payment:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        accountId:
+          type: string
+        amount:
+          type: number
+        paymentDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - applied
+          - pending
+          - returned
+          - voided
+    BillingAccountListResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingAccount'
+        totalCount:
+          type: integer
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.majesco.example.com/oauth2/token
+          scopes:
+            read: Read access to policies, claims, and billing
+            write: Write access for policy and claim operations
+externalDocs:
+  description: Majesco Developer Portal
+  url: https://www.majesco.com/

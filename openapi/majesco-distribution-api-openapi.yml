@@ -1,0 +1,191 @@
+openapi: 3.1.0
+info:
+  title: Majesco Insurance Policy Administration Billing Distribution API
+  description: Majesco cloud-based insurance platform API for policy administration, claims management, billing, and distribution. Supports P&C, L&A, and specialty lines with REST interfaces for digital insurance operations.
+  version: 1.0.0
+  contact:
+    name: Majesco Support
+    url: https://www.majesco.com/contact/
+  license:
+    name: Proprietary
+    url: https://www.majesco.com/terms
+servers:
+- url: https://api.majesco.example.com/v1
+  description: Majesco API (customer-specific tenant URL)
+security:
+- OAuth2:
+  - read
+  - write
+tags:
+- name: Distribution
+  description: Quote and bind operations for distribution channels
+paths:
+  /quotes:
+    post:
+      operationId: createQuote
+      summary: Generate an insurance quote
+      description: Submit applicant and risk data to receive a premium quote with coverage options.
+      tags:
+      - Distribution
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+      responses:
+        '200':
+          description: Quote generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+        '422':
+          description: Underwriting declination or missing required data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+components:
+  schemas:
+    Coverage:
+      type: object
+      properties:
+        coverageCode:
+          type: string
+        coverageDescription:
+          type: string
+        limit:
+          type: number
+        deductible:
+          type: number
+        premium:
+          type: number
+        status:
+          type: string
+          enum:
+          - active
+          - excluded
+          - suspended
+    QuoteRequest:
+      type: object
+      required:
+      - productType
+      - effectiveDate
+      - applicant
+      properties:
+        productType:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        applicant:
+          $ref: '#/components/schemas/Policyholder'
+        riskData:
+          type: object
+          additionalProperties: true
+          description: Product-specific risk data (vehicle, property, etc.)
+        requestedCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageRequest'
+    CoverageRequest:
+      type: object
+      required:
+      - coverageCode
+      properties:
+        coverageCode:
+          type: string
+        limit:
+          type: number
+        deductible:
+          type: number
+    ValidationError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+          description: Two-letter US state code
+          pattern: ^[A-Z]{2}$
+        postalCode:
+          type: string
+        country:
+          type: string
+          default: US
+    Policyholder:
+      type: object
+      required:
+      - firstName
+      - lastName
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Quote:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        status:
+          type: string
+          enum:
+          - quoted
+          - declined
+          - referred
+          - expired
+        totalPremium:
+          type: number
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coverage'
+        expiresAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.majesco.example.com/oauth2/token
+          scopes:
+            read: Read access to policies, claims, and billing
+            write: Write access for policy and claim operations
+externalDocs:
+  description: Majesco Developer Portal
+  url: https://www.majesco.com/
