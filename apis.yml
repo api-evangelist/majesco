@@ -1,31 +1,100 @@
 aid: majesco
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/majesco.png
 url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/apis.yml
 apis:
-- aid: majesco:majesco-api
-  name: Majesco Insurance SaaS API
-  tags:
-  - Claims
-  - Cloud
-  - Insurance
-  - Policy
-  - SaaS
-  image: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/image.png
+- aid: majesco:majesco-billing-api
+  name: majesco Billing API
+  description: Premium billing and payment operations
   humanURL: https://www.majesco.com/
   baseURL: https://api.majesco.example.com
+  tags:
+  - Billing
   properties:
-  - url: https://www.majesco.com/
-    type: Documentation
-  - url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/openapi/majesco-policy-openapi.yml
-    type: OpenAPI
-  - url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
-    type: JSONSchema
-  - url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
-    type: JSONLDContext
-  - url: graphql/majesco-graphql.md
-    type: GraphQL
-  description: Majesco provides cloud-based insurance platform APIs for policy administration,
-    claims management, billing, and distribution. APIs enable digital insurance operations
-    across P&C, L&A, and specialty lines with modern REST interfaces.
+  - type: OpenAPI
+    url: openapi/majesco-billing-api-openapi.yml
+  - type: Documentation
+    url: https://www.majesco.com/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
+  - type: GraphQL
+    url: graphql/majesco-graphql.md
+- aid: majesco:majesco-claims-api
+  name: majesco Claims API
+  description: Claims intake and management
+  humanURL: https://www.majesco.com/
+  baseURL: https://api.majesco.example.com
+  tags:
+  - Claims
+  properties:
+  - type: OpenAPI
+    url: openapi/majesco-claims-api-openapi.yml
+  - type: Documentation
+    url: https://www.majesco.com/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
+  - type: GraphQL
+    url: graphql/majesco-graphql.md
+- aid: majesco:majesco-distribution-api
+  name: majesco Distribution API
+  description: Quote and bind operations for distribution channels
+  humanURL: https://www.majesco.com/
+  baseURL: https://api.majesco.example.com
+  tags:
+  - Distribution
+  properties:
+  - type: OpenAPI
+    url: openapi/majesco-distribution-api-openapi.yml
+  - type: Documentation
+    url: https://www.majesco.com/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
+  - type: GraphQL
+    url: graphql/majesco-graphql.md
+- aid: majesco:majesco-policies-api
+  name: majesco Policies API
+  description: Insurance policy lifecycle management
+  humanURL: https://www.majesco.com/
+  baseURL: https://api.majesco.example.com
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/majesco-policies-api-openapi.yml
+  - type: Documentation
+    url: https://www.majesco.com/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
+  - type: GraphQL
+    url: graphql/majesco-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/majesco-agentic-access.yml
