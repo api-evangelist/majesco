@@ -1,0 +1,20 @@
+{
+  "provider": "majesco",
+  "sources": [
+    "majesco-billing-api-openapi.yml",
+    "majesco-claims-api-openapi.yml",
+    "majesco-distribution-api-openapi.yml",
+    "majesco-policies-api-openapi.yml"
+  ],
+  "outputs": [
+    "majesco-billing-api-openapi.yml",
+    "majesco-claims-api-openapi.yml",
+    "majesco-distribution-api-openapi.yml",
+    "majesco-policies-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
