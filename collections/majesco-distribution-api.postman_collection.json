@@ -1,0 +1,199 @@
+{
+  "item": [
+    {
+      "id": "defc18ae-77b3-4a36-8d32-2789bf3c855d",
+      "name": "Distribution",
+      "description": {
+        "content": "Quote and bind operations for distribution channels",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d8761481-63ba-463a-9942-5c9f13caa8c9",
+          "name": "Generate an insurance quote",
+          "request": {
+            "name": "Generate an insurance quote",
+            "description": {
+              "content": "Submit applicant and risk data to receive a premium quote with coverage options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"applicant\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"dateOfBirth\": \"<date>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\",\n    \"address\": {\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"US\"\n    }\n  },\n  \"riskData\": {\n    \"key_0\": 4604,\n    \"key_1\": \"string\"\n  },\n  \"requestedCoverages\": [\n    {\n      \"coverageCode\": \"<string>\",\n      \"limit\": \"<number>\",\n      \"deductible\": \"<number>\"\n    },\n    {\n      \"coverageCode\": \"<string>\",\n      \"limit\": \"<number>\",\n      \"deductible\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4705ae83-bed5-4b8b-8c5a-abaa308076f6",
+              "name": "Quote generated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"applicant\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"2008-07-31\",\n    \"email\": \"kllxGT@OaniJRyBxmFmbErMAocOBXaqxsopjFro.gmz\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"QS\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"riskData\": {\n    \"key_0\": \"string\"\n  },\n  \"requestedCoverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 4899.750706617065,\n      \"deductible\": 9629.071790883025\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 7066.209447828777,\n      \"deductible\": 2992.8907000952763\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quoteId\": \"string\",\n  \"status\": \"referred\",\n  \"totalPremium\": 3833.844458028639,\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 5881.540022377768,\n      \"deductible\": 5862.1547644277025,\n      \"premium\": 7044.903712843447,\n      \"status\": \"active\"\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 6623.872099565447,\n      \"deductible\": 5086.95599050341,\n      \"premium\": 8620.430952191562,\n      \"status\": \"active\"\n    }\n  ],\n  \"expiresAt\": \"1986-12-22T07:21:26.273Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23830b99-c36c-43ed-b162-17cea57a69d6",
+              "name": "Underwriting declination or missing required data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"applicant\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"2008-07-31\",\n    \"email\": \"kllxGT@OaniJRyBxmFmbErMAocOBXaqxsopjFro.gmz\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"QS\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"riskData\": {\n    \"key_0\": \"string\"\n  },\n  \"requestedCoverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 4899.750706617065,\n      \"deductible\": 9629.071790883025\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 7066.209447828777,\n      \"deductible\": 2992.8907000952763\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"violations\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.majesco.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.majesco.example.com/oauth2/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ea84734b-7216-49bb-8468-de1224135f70",
+    "name": "Majesco Insurance Policy Administration Billing Distribution API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Majesco cloud-based insurance platform API for policy administration, claims management, billing, and distribution. Supports P&C, L&A, and specialty lines with REST interfaces for digital insurance operations.\n\nContact Support:\n Name: Majesco Support",
+      "type": "text/plain"
+    }
+  }
+}

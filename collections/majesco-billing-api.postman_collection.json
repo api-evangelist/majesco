@@ -1,0 +1,270 @@
+{
+  "item": [
+    {
+      "id": "fee64ad6-c95d-4e60-b42f-6c691e31364b",
+      "name": "Billing",
+      "description": {
+        "content": "Premium billing and payment operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3c917349-e0eb-46d1-8f0a-10977aab41cf",
+          "name": "List billing accounts",
+          "request": {
+            "name": "List billing accounts",
+            "description": {
+              "content": "Retrieve billing accounts associated with policies.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "policyNumber",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc75ce14-7af0-44df-a2bf-f80da9206aa2",
+              "name": "List of billing accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "policyNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"accountId\": \"string\",\n      \"policyNumber\": \"string\",\n      \"balance\": 4294.826382646627,\n      \"nextDueDate\": \"1963-01-08\",\n      \"nextDueAmount\": 1943.4438741928338,\n      \"billingMethod\": \"check\"\n    },\n    {\n      \"accountId\": \"string\",\n      \"policyNumber\": \"string\",\n      \"balance\": 6283.304166942677,\n      \"nextDueDate\": \"2025-03-30\",\n      \"nextDueAmount\": 4385.088098791876,\n      \"billingMethod\": \"ach\"\n    }\n  ],\n  \"totalCount\": 9540\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39afd864-df86-4c32-901e-9eaeae5e5105",
+          "name": "Record a payment",
+          "request": {
+            "name": "Record a payment",
+            "description": {
+              "content": "Record a premium payment against a billing account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "billing",
+                "accounts",
+                ":accountId",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"paymentMethod\": \"<string>\",\n  \"paymentDate\": \"<date>\",\n  \"referenceNumber\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56ef6334-8d4c-43ce-9cbc-49eb1e40c907",
+              "name": "Payment recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "billing",
+                    "accounts",
+                    ":accountId",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"paymentMethod\": \"<string>\",\n  \"paymentDate\": \"<date>\",\n  \"referenceNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentId\": \"string\",\n  \"accountId\": \"string\",\n  \"amount\": 2468.6475673947116,\n  \"paymentDate\": \"1984-08-16\",\n  \"status\": \"voided\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.majesco.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.majesco.example.com/oauth2/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "71c72626-6319-4a28-9956-13f0dca7eaae",
+    "name": "Majesco Insurance Policy Administration Billing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Majesco cloud-based insurance platform API for policy administration, claims management, billing, and distribution. Supports P&C, L&A, and specialty lines with REST interfaces for digital insurance operations.\n\nContact Support:\n Name: Majesco Support",
+      "type": "text/plain"
+    }
+  }
+}

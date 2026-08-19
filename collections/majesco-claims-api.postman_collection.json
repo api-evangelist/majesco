@@ -1,0 +1,412 @@
+{
+  "item": [
+    {
+      "id": "9f8ad4f0-d7dc-4586-a4b7-423fa3fe674b",
+      "name": "Claims",
+      "description": {
+        "content": "Claims intake and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "057c52c4-c6f1-4968-aee3-2ddd8746fe55",
+          "name": "List claims",
+          "request": {
+            "name": "List claims",
+            "description": {
+              "content": "Retrieve a paginated list of claims with optional filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "claims"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "policyNumber",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "claimDateFrom",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89448141-3a64-4191-9c6d-0841df169bfd",
+              "name": "Paginated list of claims",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "claims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "policyNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "claimDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"claims\": [\n    {\n      \"claimNumber\": \"string\",\n      \"policyNumber\": \"string\",\n      \"status\": \"in_review\",\n      \"lossDate\": \"2002-05-15\",\n      \"reportedDate\": \"2000-03-01\",\n      \"lossType\": \"string\",\n      \"lossDescription\": \"string\",\n      \"claimant\": {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"id\": \"string\",\n        \"dateOfBirth\": \"2017-06-27\",\n        \"email\": \"y5xx8@ReLTnHWqU.ua\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"street1\": \"string\",\n          \"street2\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"OL\",\n          \"postalCode\": \"string\",\n          \"country\": \"US\"\n        }\n      },\n      \"coveragesInvolved\": [\n        \"string\",\n        \"string\"\n      ],\n      \"totalReserved\": 6818.021131660702,\n      \"totalPaid\": 6463.029288558897,\n      \"adjusterName\": \"string\",\n      \"createdAt\": \"1955-10-01T09:40:38.761Z\"\n    },\n    {\n      \"claimNumber\": \"string\",\n      \"policyNumber\": \"string\",\n      \"status\": \"denied\",\n      \"lossDate\": \"1984-12-01\",\n      \"reportedDate\": \"2023-10-03\",\n      \"lossType\": \"string\",\n      \"lossDescription\": \"string\",\n      \"claimant\": {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"id\": \"string\",\n        \"dateOfBirth\": \"2001-08-14\",\n        \"email\": \"LJMK@UHUBvodvwMvdrlmJfzsPFbx.zqnr\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"street1\": \"string\",\n          \"street2\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"HM\",\n          \"postalCode\": \"string\",\n          \"country\": \"US\"\n        }\n      },\n      \"coveragesInvolved\": [\n        \"string\",\n        \"string\"\n      ],\n      \"totalReserved\": 2065.0662022957176,\n      \"totalPaid\": 4031.9846300483264,\n      \"adjusterName\": \"string\",\n      \"createdAt\": \"1983-06-01T05:27:09.954Z\"\n    }\n  ],\n  \"totalCount\": 8240,\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2805f6e1-406c-47a3-b8d7-e8d64547a9e8",
+          "name": "Create a new claim",
+          "request": {
+            "name": "Create a new claim",
+            "description": {
+              "content": "Submit a first notice of loss (FNOL) for a policy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "claims"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"policyNumber\": \"<string>\",\n  \"lossDate\": \"<date>\",\n  \"lossType\": \"<string>\",\n  \"lossDescription\": \"<string>\",\n  \"claimantId\": \"<string>\",\n  \"contactPhone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c0d9a65-8110-4980-9aaf-1c88a86713a9",
+              "name": "Claim created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "claims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"policyNumber\": \"<string>\",\n  \"lossDate\": \"<date>\",\n  \"lossType\": \"<string>\",\n  \"lossDescription\": \"<string>\",\n  \"claimantId\": \"<string>\",\n  \"contactPhone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"claimNumber\": \"string\",\n  \"policyNumber\": \"string\",\n  \"status\": \"in_review\",\n  \"lossDate\": \"2010-04-25\",\n  \"reportedDate\": \"2004-11-30\",\n  \"lossType\": \"string\",\n  \"lossDescription\": \"string\",\n  \"claimant\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1969-03-16\",\n    \"email\": \"42zpzU6f2s1R@FLxGtOPrGNuRlCTXLTcZTUmrTa.fr\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"OP\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coveragesInvolved\": [\n    \"string\",\n    \"string\"\n  ],\n  \"totalReserved\": 4898.072648989039,\n  \"totalPaid\": 4002.527051608726,\n  \"adjusterName\": \"string\",\n  \"createdAt\": \"2026-08-13T11:06:58.024Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "791dee9e-a260-42a5-8e8c-cdbc4db5fcec",
+          "name": "Get claim details",
+          "request": {
+            "name": "Get claim details",
+            "description": {
+              "content": "Retrieve full details of a claim including loss details, coverage, reserves, and payment history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "claims",
+                ":claimNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "claimNumber",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65573cb2-4975-46d4-a8ad-19c5799693d1",
+              "name": "Claim details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "claims",
+                    ":claimNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "claimNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"claimNumber\": \"string\",\n  \"policyNumber\": \"string\",\n  \"status\": \"in_review\",\n  \"lossDate\": \"2010-04-25\",\n  \"reportedDate\": \"2004-11-30\",\n  \"lossType\": \"string\",\n  \"lossDescription\": \"string\",\n  \"claimant\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1969-03-16\",\n    \"email\": \"42zpzU6f2s1R@FLxGtOPrGNuRlCTXLTcZTUmrTa.fr\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"OP\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coveragesInvolved\": [\n    \"string\",\n    \"string\"\n  ],\n  \"totalReserved\": 4898.072648989039,\n  \"totalPaid\": 4002.527051608726,\n  \"adjusterName\": \"string\",\n  \"createdAt\": \"2026-08-13T11:06:58.024Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb6d4480-da0c-4cdb-8a00-515d80df6dfd",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "claims",
+                    ":claimNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "claimNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.majesco.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.majesco.example.com/oauth2/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "44470d0a-29f4-48c9-8240-10897fa66192",
+    "name": "Majesco Insurance Policy Administration Billing Claims API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Majesco cloud-based insurance platform API for policy administration, claims management, billing, and distribution. Supports P&C, L&A, and specialty lines with REST interfaces for digital insurance operations.\n\nContact Support:\n Name: Majesco Support",
+      "type": "text/plain"
+    }
+  }
+}

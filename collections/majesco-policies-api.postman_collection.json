@@ -1,0 +1,1153 @@
+{
+  "item": [
+    {
+      "id": "219efb33-c763-48f6-aec5-457bcc1922f3",
+      "name": "Policies",
+      "description": {
+        "content": "Insurance policy lifecycle management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "334a5aa3-6c51-4dfc-951f-ece56b29f2f6",
+          "name": "List policies",
+          "request": {
+            "name": "List policies",
+            "description": {
+              "content": "Retrieve a paginated list of insurance policies. Supports filtering by product type, effective date, status, and policyholder.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by policy status"
+                },
+                {
+                  "disabled": false,
+                  "key": "productType",
+                  "value": "<string>",
+                  "description": "Filter by insurance product type"
+                },
+                {
+                  "disabled": false,
+                  "key": "policyholderName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "effectiveDateFrom",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "effectiveDateTo",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fec3285-c86d-4fd4-a7c8-c516a7a1158b",
+              "name": "Paginated list of policies",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "productType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "policyholderName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "effectiveDateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policies\": [\n    {\n      \"policyNumber\": \"string\",\n      \"status\": \"cancelled\",\n      \"productType\": \"health\",\n      \"effectiveDate\": \"2018-08-19\",\n      \"expirationDate\": \"1993-01-17\",\n      \"cancellationDate\": \"1972-08-19\",\n      \"policyholder\": {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"id\": \"string\",\n        \"dateOfBirth\": \"1948-06-16\",\n        \"email\": \"6fXBQKZvRp@RByhItW.nvsi\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"street1\": \"string\",\n          \"street2\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"GU\",\n          \"postalCode\": \"string\",\n          \"country\": \"US\"\n        }\n      },\n      \"coverages\": [\n        {\n          \"coverageCode\": \"string\",\n          \"coverageDescription\": \"string\",\n          \"limit\": 4732.007048463434,\n          \"deductible\": 8653.779200339664,\n          \"premium\": 4137.249462671175,\n          \"status\": \"suspended\"\n        },\n        {\n          \"coverageCode\": \"string\",\n          \"coverageDescription\": \"string\",\n          \"limit\": 5955.034164494325,\n          \"deductible\": 7883.050055712315,\n          \"premium\": 641.5386786201572,\n          \"status\": \"active\"\n        }\n      ],\n      \"premium\": {\n        \"annualPremium\": 3749.1492261011103,\n        \"taxAmount\": 1350.167841668003,\n        \"feesAmount\": 1173.776506366797,\n        \"totalPremium\": 9724.254049482959,\n        \"currency\": \"USD\",\n        \"billingFrequency\": \"semi_annual\"\n      },\n      \"endorsements\": [\n        {\n          \"endorsementNumber\": \"string\",\n          \"type\": \"string\",\n          \"effectiveDate\": \"1986-12-11\",\n          \"description\": \"string\",\n          \"premiumChange\": 8822.213100504337\n        },\n        {\n          \"endorsementNumber\": \"string\",\n          \"type\": \"string\",\n          \"effectiveDate\": \"2002-01-21\",\n          \"description\": \"string\",\n          \"premiumChange\": 733.845671748461\n        }\n      ],\n      \"createdAt\": \"2008-05-15T01:25:54.887Z\",\n      \"updatedAt\": \"2002-02-26T13:51:33.678Z\"\n    },\n    {\n      \"policyNumber\": \"string\",\n      \"status\": \"active\",\n      \"productType\": \"specialty\",\n      \"effectiveDate\": \"1974-07-22\",\n      \"expirationDate\": \"1975-07-11\",\n      \"cancellationDate\": \"1971-08-14\",\n      \"policyholder\": {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"id\": \"string\",\n        \"dateOfBirth\": \"2021-01-22\",\n        \"email\": \"Cxcj@hpRtBwT.mpyw\",\n        \"phone\": \"string\",\n        \"address\": {\n          \"street1\": \"string\",\n          \"street2\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"EH\",\n          \"postalCode\": \"string\",\n          \"country\": \"US\"\n        }\n      },\n      \"coverages\": [\n        {\n          \"coverageCode\": \"string\",\n          \"coverageDescription\": \"string\",\n          \"limit\": 3087.604298736346,\n          \"deductible\": 787.4032821860255,\n          \"premium\": 2939.747904802077,\n          \"status\": \"active\"\n        },\n        {\n          \"coverageCode\": \"string\",\n          \"coverageDescription\": \"string\",\n          \"limit\": 7015.925588176899,\n          \"deductible\": 804.1848715361189,\n          \"premium\": 8926.031892120007,\n          \"status\": \"active\"\n        }\n      ],\n      \"premium\": {\n        \"annualPremium\": 2775.8022584422624,\n        \"taxAmount\": 110.2862387314374,\n        \"feesAmount\": 1832.2566911457416,\n        \"totalPremium\": 9946.490916272325,\n        \"currency\": \"USD\",\n        \"billingFrequency\": \"quarterly\"\n      },\n      \"endorsements\": [\n        {\n          \"endorsementNumber\": \"string\",\n          \"type\": \"string\",\n          \"effectiveDate\": \"1953-06-22\",\n          \"description\": \"string\",\n          \"premiumChange\": 5025.326873415964\n        },\n        {\n          \"endorsementNumber\": \"string\",\n          \"type\": \"string\",\n          \"effectiveDate\": \"2008-02-16\",\n          \"description\": \"string\",\n          \"premiumChange\": 2846.851288026182\n        }\n      ],\n      \"createdAt\": \"1955-08-09T07:04:37.203Z\",\n      \"updatedAt\": \"1981-02-20T06:13:10.872Z\"\n    }\n  ],\n  \"totalCount\": 6338,\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9974d1fa-b51f-4186-98f4-15ea6c33b058",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "productType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "policyholderName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "effectiveDateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa462641-4318-4f5b-91bf-9408109e86e3",
+              "name": "Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "productType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "policyholderName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "effectiveDateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77dd0f8d-45a0-43e4-af1a-9892f56eba3b",
+          "name": "Create a new policy",
+          "request": {
+            "name": "Create a new policy",
+            "description": {
+              "content": "Initiate a new insurance policy. The system validates underwriting rules and returns a policy number on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"policyholder\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"dateOfBirth\": \"<date>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\",\n    \"address\": {\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"<string>\",\n      \"limit\": \"<number>\",\n      \"deductible\": \"<number>\"\n    },\n    {\n      \"coverageCode\": \"<string>\",\n      \"limit\": \"<number>\",\n      \"deductible\": \"<number>\"\n    }\n  ],\n  \"expirationDate\": \"<date>\",\n  \"agentCode\": \"<string>\",\n  \"channelCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7ee66995-9fa2-4a07-b95e-8c72448d66c3",
+              "name": "Policy created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1972-04-22\",\n    \"email\": \"uN76p@DklneDN.ivf\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"OD\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 1625.154915197856,\n      \"deductible\": 7604.78952375847\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 4313.911966300367,\n      \"deductible\": 955.8538645911641\n    }\n  ],\n  \"expirationDate\": \"<date>\",\n  \"agentCode\": \"<string>\",\n  \"channelCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyNumber\": \"string\",\n  \"status\": \"active\",\n  \"productType\": \"health\",\n  \"effectiveDate\": \"1967-09-14\",\n  \"expirationDate\": \"1983-05-14\",\n  \"cancellationDate\": \"1967-06-24\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1989-09-23\",\n    \"email\": \"rpj013rFB@qdoKsowbHhwGDrhhJMokbfGjownDER.wb\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"TF\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 1921.5331388169,\n      \"deductible\": 3925.6599256380177,\n      \"premium\": 6331.088094792325,\n      \"status\": \"excluded\"\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 4261.594684633031,\n      \"deductible\": 3779.393937840765,\n      \"premium\": 4761.172647972692,\n      \"status\": \"suspended\"\n    }\n  ],\n  \"premium\": {\n    \"annualPremium\": 135.38245598741173,\n    \"taxAmount\": 6497.200875237253,\n    \"feesAmount\": 4761.779704926566,\n    \"totalPremium\": 2900.9325859164423,\n    \"currency\": \"USD\",\n    \"billingFrequency\": \"monthly\"\n  },\n  \"endorsements\": [\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"1967-03-17\",\n      \"description\": \"string\",\n      \"premiumChange\": 9717.877554036393\n    },\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"2006-04-07\",\n      \"description\": \"string\",\n      \"premiumChange\": 3069.1932468920445\n    }\n  ],\n  \"createdAt\": \"1993-12-13T10:36:21.474Z\",\n  \"updatedAt\": \"1998-11-16T06:41:12.009Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb740f32-54fd-434c-b6bf-1e000c64a07c",
+              "name": "Invalid request data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1972-04-22\",\n    \"email\": \"uN76p@DklneDN.ivf\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"OD\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 1625.154915197856,\n      \"deductible\": 7604.78952375847\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 4313.911966300367,\n      \"deductible\": 955.8538645911641\n    }\n  ],\n  \"expirationDate\": \"<date>\",\n  \"agentCode\": \"<string>\",\n  \"channelCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a86598dc-da93-4ebb-91b5-807e3e2e7d8c",
+              "name": "Authentication required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1972-04-22\",\n    \"email\": \"uN76p@DklneDN.ivf\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"OD\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 1625.154915197856,\n      \"deductible\": 7604.78952375847\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 4313.911966300367,\n      \"deductible\": 955.8538645911641\n    }\n  ],\n  \"expirationDate\": \"<date>\",\n  \"agentCode\": \"<string>\",\n  \"channelCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b594d075-529f-42b6-99ad-0c168743d8cc",
+              "name": "Underwriting validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"productType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1972-04-22\",\n    \"email\": \"uN76p@DklneDN.ivf\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"OD\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 1625.154915197856,\n      \"deductible\": 7604.78952375847\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"limit\": 4313.911966300367,\n      \"deductible\": 955.8538645911641\n    }\n  ],\n  \"expirationDate\": \"<date>\",\n  \"agentCode\": \"<string>\",\n  \"channelCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"violations\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f41d4ec-47c5-488c-aaf9-f5f601578448",
+          "name": "Get a policy by policy number",
+          "request": {
+            "name": "Get a policy by policy number",
+            "description": {
+              "content": "Retrieve full details of a single policy including coverage, endorsements, and premium breakdown.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":policyNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyNumber",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b355b21f-1e0d-40c0-8612-6fd6d21c6f09",
+              "name": "Policy details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":policyNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyNumber\": \"string\",\n  \"status\": \"active\",\n  \"productType\": \"health\",\n  \"effectiveDate\": \"1967-09-14\",\n  \"expirationDate\": \"1983-05-14\",\n  \"cancellationDate\": \"1967-06-24\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1989-09-23\",\n    \"email\": \"rpj013rFB@qdoKsowbHhwGDrhhJMokbfGjownDER.wb\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"TF\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 1921.5331388169,\n      \"deductible\": 3925.6599256380177,\n      \"premium\": 6331.088094792325,\n      \"status\": \"excluded\"\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 4261.594684633031,\n      \"deductible\": 3779.393937840765,\n      \"premium\": 4761.172647972692,\n      \"status\": \"suspended\"\n    }\n  ],\n  \"premium\": {\n    \"annualPremium\": 135.38245598741173,\n    \"taxAmount\": 6497.200875237253,\n    \"feesAmount\": 4761.779704926566,\n    \"totalPremium\": 2900.9325859164423,\n    \"currency\": \"USD\",\n    \"billingFrequency\": \"monthly\"\n  },\n  \"endorsements\": [\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"1967-03-17\",\n      \"description\": \"string\",\n      \"premiumChange\": 9717.877554036393\n    },\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"2006-04-07\",\n      \"description\": \"string\",\n      \"premiumChange\": 3069.1932468920445\n    }\n  ],\n  \"createdAt\": \"1993-12-13T10:36:21.474Z\",\n  \"updatedAt\": \"1998-11-16T06:41:12.009Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d175ceb9-e24e-4bbb-bf2c-43a63820df7b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":policyNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cd146c5-b6ba-4190-b44c-d9f42732ee4a",
+          "name": "Update (endorse) a policy",
+          "request": {
+            "name": "Update (endorse) a policy",
+            "description": {
+              "content": "Apply mid-term endorsements to an in-force policy such as coverage changes, vehicle additions, or address updates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":policyNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyNumber",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"endorsementType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"changes\": {\n    \"key_0\": \"string\",\n    \"key_1\": 9429\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "00776186-483a-4eb9-8c3c-dc792bab0939",
+              "name": "Policy updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":policyNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endorsementType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"changes\": {\n    \"key_0\": \"string\",\n    \"key_1\": true,\n    \"key_2\": 2406.807056410275\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyNumber\": \"string\",\n  \"status\": \"active\",\n  \"productType\": \"health\",\n  \"effectiveDate\": \"1967-09-14\",\n  \"expirationDate\": \"1983-05-14\",\n  \"cancellationDate\": \"1967-06-24\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1989-09-23\",\n    \"email\": \"rpj013rFB@qdoKsowbHhwGDrhhJMokbfGjownDER.wb\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"TF\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 1921.5331388169,\n      \"deductible\": 3925.6599256380177,\n      \"premium\": 6331.088094792325,\n      \"status\": \"excluded\"\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 4261.594684633031,\n      \"deductible\": 3779.393937840765,\n      \"premium\": 4761.172647972692,\n      \"status\": \"suspended\"\n    }\n  ],\n  \"premium\": {\n    \"annualPremium\": 135.38245598741173,\n    \"taxAmount\": 6497.200875237253,\n    \"feesAmount\": 4761.779704926566,\n    \"totalPremium\": 2900.9325859164423,\n    \"currency\": \"USD\",\n    \"billingFrequency\": \"monthly\"\n  },\n  \"endorsements\": [\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"1967-03-17\",\n      \"description\": \"string\",\n      \"premiumChange\": 9717.877554036393\n    },\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"2006-04-07\",\n      \"description\": \"string\",\n      \"premiumChange\": 3069.1932468920445\n    }\n  ],\n  \"createdAt\": \"1993-12-13T10:36:21.474Z\",\n  \"updatedAt\": \"1998-11-16T06:41:12.009Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cfa9eae-f083-439b-84b0-1fd14c59816f",
+              "name": "Endorsement validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":policyNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"endorsementType\": \"<string>\",\n  \"effectiveDate\": \"<date>\",\n  \"changes\": {\n    \"key_0\": \"string\",\n    \"key_1\": true,\n    \"key_2\": 2406.807056410275\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"violations\": [\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f8f3e6a-0bf4-4ffe-9ae7-b82bc231fc5d",
+          "name": "Cancel a policy",
+          "request": {
+            "name": "Cancel a policy",
+            "description": {
+              "content": "Cancel an in-force policy with a cancellation reason and effective date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":policyNumber",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyNumber",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"effectiveDate\": \"<date>\",\n  \"reason\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fbbddbeb-4d86-4bcc-a0cb-bfa2fa45083a",
+              "name": "Policy cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":policyNumber",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"<date>\",\n  \"reason\": \"<string>\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyNumber\": \"string\",\n  \"status\": \"active\",\n  \"productType\": \"health\",\n  \"effectiveDate\": \"1967-09-14\",\n  \"expirationDate\": \"1983-05-14\",\n  \"cancellationDate\": \"1967-06-24\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1989-09-23\",\n    \"email\": \"rpj013rFB@qdoKsowbHhwGDrhhJMokbfGjownDER.wb\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"TF\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 1921.5331388169,\n      \"deductible\": 3925.6599256380177,\n      \"premium\": 6331.088094792325,\n      \"status\": \"excluded\"\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 4261.594684633031,\n      \"deductible\": 3779.393937840765,\n      \"premium\": 4761.172647972692,\n      \"status\": \"suspended\"\n    }\n  ],\n  \"premium\": {\n    \"annualPremium\": 135.38245598741173,\n    \"taxAmount\": 6497.200875237253,\n    \"feesAmount\": 4761.779704926566,\n    \"totalPremium\": 2900.9325859164423,\n    \"currency\": \"USD\",\n    \"billingFrequency\": \"monthly\"\n  },\n  \"endorsements\": [\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"1967-03-17\",\n      \"description\": \"string\",\n      \"premiumChange\": 9717.877554036393\n    },\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"2006-04-07\",\n      \"description\": \"string\",\n      \"premiumChange\": 3069.1932468920445\n    }\n  ],\n  \"createdAt\": \"1993-12-13T10:36:21.474Z\",\n  \"updatedAt\": \"1998-11-16T06:41:12.009Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fe16c2f-319d-42ed-aee8-e2937daf4b7d",
+          "name": "Renew a policy",
+          "request": {
+            "name": "Renew a policy",
+            "description": {
+              "content": "Generate a renewal offer for a policy approaching its expiration date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":policyNumber",
+                "renew"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "policyNumber",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"renewalDate\": \"<date>\",\n  \"premiumChangePct\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fffb30a0-b419-40af-b62e-656802d13f00",
+              "name": "Renewal offer generated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":policyNumber",
+                    "renew"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "policyNumber",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"renewalDate\": \"<date>\",\n  \"premiumChangePct\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyNumber\": \"string\",\n  \"status\": \"active\",\n  \"productType\": \"health\",\n  \"effectiveDate\": \"1967-09-14\",\n  \"expirationDate\": \"1983-05-14\",\n  \"cancellationDate\": \"1967-06-24\",\n  \"policyholder\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"id\": \"string\",\n    \"dateOfBirth\": \"1989-09-23\",\n    \"email\": \"rpj013rFB@qdoKsowbHhwGDrhhJMokbfGjownDER.wb\",\n    \"phone\": \"string\",\n    \"address\": {\n      \"street1\": \"string\",\n      \"street2\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"TF\",\n      \"postalCode\": \"string\",\n      \"country\": \"US\"\n    }\n  },\n  \"coverages\": [\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 1921.5331388169,\n      \"deductible\": 3925.6599256380177,\n      \"premium\": 6331.088094792325,\n      \"status\": \"excluded\"\n    },\n    {\n      \"coverageCode\": \"string\",\n      \"coverageDescription\": \"string\",\n      \"limit\": 4261.594684633031,\n      \"deductible\": 3779.393937840765,\n      \"premium\": 4761.172647972692,\n      \"status\": \"suspended\"\n    }\n  ],\n  \"premium\": {\n    \"annualPremium\": 135.38245598741173,\n    \"taxAmount\": 6497.200875237253,\n    \"feesAmount\": 4761.779704926566,\n    \"totalPremium\": 2900.9325859164423,\n    \"currency\": \"USD\",\n    \"billingFrequency\": \"monthly\"\n  },\n  \"endorsements\": [\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"1967-03-17\",\n      \"description\": \"string\",\n      \"premiumChange\": 9717.877554036393\n    },\n    {\n      \"endorsementNumber\": \"string\",\n      \"type\": \"string\",\n      \"effectiveDate\": \"2006-04-07\",\n      \"description\": \"string\",\n      \"premiumChange\": 3069.1932468920445\n    }\n  ],\n  \"createdAt\": \"1993-12-13T10:36:21.474Z\",\n  \"updatedAt\": \"1998-11-16T06:41:12.009Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.majesco.example.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.majesco.example.com/oauth2/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "43af8139-532f-47f1-a606-f6d7f3b4165a",
+    "name": "Majesco Insurance Policy Administration Billing Policies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Majesco cloud-based insurance platform API for policy administration, claims management, billing, and distribution. Supports P&C, L&A, and specialty lines with REST interfaces for digital insurance operations.\n\nContact Support:\n Name: Majesco Support",
+      "type": "text/plain"
+    }
+  }
+}
