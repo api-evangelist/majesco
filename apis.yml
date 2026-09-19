@@ -13,20 +13,25 @@ deliveryModel:
   method: derived
 specificationVersion: '0.23'
 accessModel:
-  pricing: freemium
-  onboarding: self-serve
+  pricing: enterprise
+  onboarding: sales
   trial: false
   try_now: false
   public: false
-  label: Freemium · Self-serve signup
-  confidence: medium
-  try_now_blocked_by: example-domain
+  label: Enterprise · Contact sales
+  confidence: high
+  try_now_blocked_by: no-public-api
+  note: >-
+    Corrected 2026-09-17. The previous freemium/self-serve reading was derived from a bulk-sweep
+    plans scaffold that had invented a Free tier. Majesco publishes no pricing page, no plan
+    comparison and no developer signup anywhere on majesco.com; every route to the product is a
+    demo or information request handled by sales.
   source:
   - plans
   - authentication
   - security
-  generated: '2026-08-26'
-  method: derived
+  generated: '2026-09-17'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/majesco.png
 url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/apis.yml
 apis:
@@ -34,6 +39,7 @@ apis:
   name: majesco Billing API
   description: Premium billing and payment operations
   humanURL: https://www.majesco.com/
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/majesco.png
   baseURL: https://api.majesco.example.com
   tags:
   - Billing
@@ -41,7 +47,7 @@ apis:
   - type: OpenAPI
     url: openapi/majesco-billing-api-openapi.yml
   - type: Documentation
-    url: https://www.majesco.com/
+    url: https://www.majesco.com/ecosystem-insurance-solutions/api-management/
   - type: JSONSchema
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
@@ -54,6 +60,7 @@ apis:
   name: majesco Claims API
   description: Claims intake and management
   humanURL: https://www.majesco.com/
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/majesco.png
   baseURL: https://api.majesco.example.com
   tags:
   - Claims
@@ -61,7 +68,7 @@ apis:
   - type: OpenAPI
     url: openapi/majesco-claims-api-openapi.yml
   - type: Documentation
-    url: https://www.majesco.com/
+    url: https://www.majesco.com/ecosystem-insurance-solutions/api-management/
   - type: JSONSchema
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
@@ -74,6 +81,7 @@ apis:
   name: majesco Distribution API
   description: Quote and bind operations for distribution channels
   humanURL: https://www.majesco.com/
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/majesco.png
   baseURL: https://api.majesco.example.com
   tags:
   - Distribution
@@ -81,7 +89,7 @@ apis:
   - type: OpenAPI
     url: openapi/majesco-distribution-api-openapi.yml
   - type: Documentation
-    url: https://www.majesco.com/
+    url: https://www.majesco.com/ecosystem-insurance-solutions/api-management/
   - type: JSONSchema
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
@@ -94,6 +102,7 @@ apis:
   name: majesco Policies API
   description: Insurance policy lifecycle management
   humanURL: https://www.majesco.com/
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/majesco.png
   baseURL: https://api.majesco.example.com
   tags:
   - Policies
@@ -101,7 +110,7 @@ apis:
   - type: OpenAPI
     url: openapi/majesco-policies-api-openapi.yml
   - type: Documentation
-    url: https://www.majesco.com/
+    url: https://www.majesco.com/ecosystem-insurance-solutions/api-management/
   - type: JSONSchema
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
@@ -127,16 +136,91 @@ common:
   type: Portal
 - url: https://www.majesco.com/
   type: Website
-- url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/openapi/majesco-policy-openapi.yml
-  type: OpenAPI
 - url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json
   type: JSONSchema
 - url: https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
   type: JSONLDContext
+- type: LLMsTxt
+  url: llms/majesco-llms.txt
+- type: ChangeLog
+  url: changelog/majesco-changelog.yml
+- type: Lifecycle
+  url: lifecycle/majesco-lifecycle.yml
+- type: Conformance
+  url: conformance/majesco-conformance.yml
+- type: Compliance
+  url: security/majesco-trust-center.yml
+- type: JSONLDContext
+  name: schema.org SoftwareApplication (Majesco-published ai-schema.json)
+  url: json-ld/majesco-ai-schema.jsonld
+- type: PrivacyPolicy
+  url: https://www.majesco.com/privacy-policy/
+- type: Support
+  url: https://www.majesco.com/majesco-support/
+- type: Blog
+  url: https://www.majesco.com/blog/
+tags:
+- Insurance
+- Insurtech
+- Policy Administration
+- Claims
+- Billing
+- Underwriting
+- Life and Annuity
+- Property and Casualty
+- Absence Management
+- Enterprise Software
+tags_raw:
+- Insurance
+- InsurTech
+- Policy Administration
+- Claims
+- Billing
+- Underwriting
+- Life and Annuity
+- Property and Casualty
+- Absence Management
+- Enterprise Software
+created: '2026-05-04'
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com
+  X-twitter: apievangelist
 maintainer:
   name: Kin Lane
   email: kin@apievangelist.com
-modified: '2026-05-19'
-description: Majesco is a global leader of cloud insurance software solutions for
-  insurance business transformation, helping insurance carriers innovate, modernize,
-  and accelerate their digital strategies.
+modified: '2026-09-17'
+description: >-
+  Majesco is a global provider of cloud-native insurance software for Property & Casualty and
+  Life, Annuity & Health carriers, serving 130+ insurers worldwide from its Morristown, New Jersey
+  headquarters. Founded in 1989, it unifies Policy, Billing and Claims administration on a single
+  platform alongside digital engagement, distribution, analytics and risk & compliance products,
+  with GenAI (Majesco Copilot) and agentic AI embedded across the core suites. Its ClaimVantage
+  line covers L&H claims, disability and absence management. Majesco sells API Management (APIM)
+  as a component of those suites rather than as a public developer program, so its API surface is
+  provisioned per carrier tenant and is not publicly documented.
+x-enrichment:
+  date: '2026-09-17'
+  status: enriched
+  artifacts_added: 10
+  pass: local-v3
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: >-
+    Majesco markets "thousands of APIs" through its APIM product but runs the gateway inside each
+    carrier's own tenant, so there is no developer.majesco.com, api.majesco.com or docs.majesco.com
+    (none of them resolve in DNS) and the API reference and release notes are delivered through the
+    customer support portal at majescoprod.service-now.com/csm, which requires a signed-carrier
+    login.
+  evidence:
+  - url: https://www.majesco.com/ecosystem-insurance-solutions/api-management/
+    status: 200
+  - url: https://developer.majesco.com/
+    status: 0
+  - url: https://support.majesco.com/
+    status: 200
+  - url: https://www.majesco.com/.well-known/api-catalog
+    status: 200
+  checked: '2026-09-17'
