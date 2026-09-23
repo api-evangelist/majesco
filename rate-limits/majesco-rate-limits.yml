@@ -4,82 +4,48 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: majesco
 providerId: majesco
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-17'
+generated: '2026-09-17'
+method: searched
+source: https://www.majesco.com/
 tags:
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the majesco API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Majesco Insurance SaaS API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Majesco Insurance SaaS API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Majesco Insurance SaaS API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Majesco Insurance SaaS API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Majesco Insurance SaaS API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Majesco publishes no rate limits. There is no public developer portal, no API reference and no
+  published throttling policy on any majesco.com surface, so there is no documented limit, no
+  documented burst allowance, no documented response header and no documented status code on
+  exhaustion. Majesco's API Management gateway runs inside each carrier's own tenant, where limits
+  are a deployment and contract matter rather than a published one. This file records that measured
+  zero; it replaces a 2026-05-04 bulk-sweep scaffold whose 10/100/1000 rpm tiers and X-RateLimit-*
+  header set were invented, not harvested.
+limit_count: 0
+limits: []
+headers: {}
+headers_documented: false
+responseCodes: {}
+policies: []
+evidence:
+- url: https://www.majesco.com/ecosystem-insurance-solutions/api-management/
+  status: 200
+  note: >-
+    Majesco's own API Management product page is the closest thing to an API surface it publishes
+    and states no limits. (Served behind an Imperva/Incapsula interstitial to non-browser clients;
+    the page's existence is confirmed in https://www.majesco.com/page-sitemap.xml.)
+- url: https://www.majesco.com/llms.txt
+  status: 200
+  note: Majesco's own LLM-facing index names no developer, API-reference or rate-limit surface.
+- url: https://www.majesco.com/.well-known/api-catalog
+  status: 200
+  note: >-
+    200 but the body is an Imperva/Incapsula HTML interstitial, not an API catalog — recorded as a
+    miss, not a document.
+superseded:
+  previous_method: generated
+  previous_generated: '2026-05-04'
+  reason: >-
+    The prior file was a bulk-sweep scaffold that self-declared its limits as "scaffold values to be
+    replaced with published provider limits". Those numbers were being read as Majesco's published
+    limits. Replaced with the measured absence.
 maintainers: []

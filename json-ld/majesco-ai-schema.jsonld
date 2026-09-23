@@ -1,0 +1,48 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Majesco Insurance Platform",
+  "applicationCategory": "Insurance Software",
+  "operatingSystem": "Cloud (SaaS)",
+  "url": "https://www.majesco.com/",
+  "description": "Cloud-native insurance software provider for P&C and L&AH insurers. Unifies Policy, Billing, and Claims with embedded GenAI, Agentic AI, and analytics. 130+ global insurance carrier customers. QKS Group SPARK Matrix AI Leader.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Majesco",
+    "url": "https://www.majesco.com/",
+    "foundingDate": "1989",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "412 Mt. Kemble Ave Suite 110c",
+      "addressLocality": "Morristown",
+      "addressRegion": "NJ",
+      "postalCode": "07960",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-973-461-5200",
+      "email": "info@majesco.com"
+    },
+    "knowsAbout": [
+      "Insurance Software",
+      "P&C Insurance Systems",
+      "Life and Health Insurance Technology",
+      "Claims Management Software",
+      "Insurance Claims Processing",
+      "Absence Management Software",
+      "Leave Management Software",
+      "FMLA Tracking",
+      "Integrated Disability and Absence Management",
+      "MGA Software",
+      "Insurance Billing Software",
+      "Insurance Policy Administration",
+      "Insurance Digital Transformation",
+      "GenAI for Insurance",
+      "Agentic AI for Insurance",
+      "Insurance Analytics",
+      "Workers Compensation Software",
+      "Disability Insurance Claims Software"
+    ]
+  }
+}

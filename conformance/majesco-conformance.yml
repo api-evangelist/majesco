@@ -1,0 +1,99 @@
+generated: '2026-09-17'
+method: searched
+source: https://trust.majesco.com/
+description: >-
+  Cross-cutting and domain-standard conformance for Majesco. Every entry below is judged against
+  something a member of the public can read. IMPORTANT SCOPE LIMIT: Majesco publishes no public
+  machine-readable API contract (see x-coverage in apis.yml), so NOTHING here is asserted from a
+  spec. Where a claim is a vendor statement on Majesco's own pages rather than a declaration
+  inside a contract, the entry says so and `contract_evidence` is null.
+standards:
+- id: acord
+  name: ACORD insurance data standards
+  domain_standard: true
+  sector: insurance
+  conforms: true
+  claim_type: vendor-published
+  contract_evidence: null
+  evidence:
+  - url: https://www.majesco.com/press/majesco-integrates-acord-solution-groups-adept-to-improve-speed-accuracy-and-security-of-data-exchange/
+    status: 200
+    note: >-
+      Majesco's own press room announces integration of ACORD Solutions Group's ADEPT data-exchange
+      platform into the Majesco Core Suite for P&C.
+  - url: https://www.majesco.com/blog/partners/acord/
+    status: 200
+    note: Majesco lists ACORD as a named partner on its own partner pages.
+  note: >-
+    This is the domain standard for Majesco's market and Majesco states it supports it at the
+    platform level. It is NOT verifiable at the contract level: no public Majesco contract declares
+    an ACORD message type, AL3 record or ACORD XML namespace, because no public contract exists.
+    Recorded as a platform claim, deliberately not as a contract signature.
+- id: soc2
+  name: SOC 2
+  conforms: true
+  claim_type: vendor-published
+  evidence:
+  - url: https://trust.majesco.com/
+    status: 403
+    note: >-
+      Majesco's trust center is live but sits behind a Cloudflare bot challenge for non-browser
+      clients. Certification set captured by 0-working/probe-security-programs.py and recorded in
+      security/majesco-trust-center.yml.
+- id: iso27001
+  name: ISO/IEC 27001
+  conforms: true
+  claim_type: vendor-published
+  evidence:
+  - url: https://trust.majesco.com/
+    status: 403
+- id: hipaa
+  name: HIPAA
+  conforms: true
+  claim_type: vendor-published
+  evidence:
+  - url: https://trust.majesco.com/
+    status: 403
+- id: gdpr
+  name: GDPR
+  conforms: true
+  claim_type: vendor-published
+  evidence:
+  - url: https://trust.majesco.com/
+    status: 403
+  - url: https://www.majesco.com/privacy-policy/
+    status: 200
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence:
+  - url: https://www.majesco.com/.well-known/oauth-authorization-server
+    status: 200
+    note: >-
+      200 but the body is an Imperva/Incapsula HTML interstitial, not authorization-server metadata.
+      Recorded as absent.
+  - url: https://www.majesco.com/.well-known/openid-configuration
+    status: 200
+    note: same HTML interstitial; no OpenID Provider metadata is served.
+  note: >-
+    Majesco's APIM product documentation (customer-only) describes OAuth, but no anonymous
+    discovery document is served on any Majesco host, so this cannot be confirmed publicly.
+- id: rfc9457
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence:
+  - url: https://www.majesco.com/llms.txt
+    status: 200
+    note: no error-format documentation is published on any public Majesco surface.
+- id: rfc8594
+  name: RFC 8594 Sunset header
+  conforms: false
+  evidence:
+  - url: https://www.majesco.com/
+    status: 200
+    note: no deprecation or sunset policy is published publicly.
+not_assessed:
+- id: fhir
+  reason: not applicable to this provider's market
+- id: psd2
+  reason: not applicable to this provider's market

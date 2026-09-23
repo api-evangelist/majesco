@@ -1,0 +1,87 @@
+# Majesco
+
+> Majesco is a leading cloud-native insurance technology company providing intelligent core software, digital solutions, analytics, and risk & compliance tools for Property & Casualty (P&C) and Life, Annuity & Health (L&AH) insurers worldwide. Serving 130+ global insurance carriers, Majesco's platform unifies Policy, Billing, and Claims with embedded GenAI (Majesco Copilot), Agentic AI, and real-time analytics — empowering insurers to modernize, innovate, and grow. Majesco is recognized as a QKS Group SPARK Matrix Leader for P&C and Life Insurance Policy Administration.
+
+## Core Platform Overview
+
+- [Insurance Platform Solutions](https://www.majesco.com/solutions/): Full portfolio overview covering P&C, L&AH, Digital, Analytics, Distribution, and Risk & Compliance
+- [Intelligent Core Software Overview](https://www.majesco.com/core-software-overview/): Unified Policy, Billing, and Claims on a cloud-native platform with embedded AI
+- [Core Insurance Software Solutions](https://www.majesco.com/core-software-insurance-solutions/): All core software products with GenAI and analytics
+
+## P&C Insurance Software
+
+- [P&C Intelligent Core Suite](https://www.majesco.com/core-software-insurance-solutions/pc-core-suite/): Complete P&C platform covering all lines including personal, commercial, specialty, and workers' compensation
+- [Policy for P&C](https://www.majesco.com/core-software-insurance-solutions/pc-core-suite/policy-for-pc/): AI-agent powered policy management for the full P&C lifecycle
+- [Billing for P&C](https://www.majesco.com/core-software-insurance-solutions/pc-core-suite/billing-for-pc/): Insurance billing and payments system
+- [P&C CoreConnect for MGAs/MGUs](https://www.majesco.com/core-software-insurance-solutions/pc-coreconnect/): MGA insurance software with quote, policy, rating, billing, and claims
+- [P&C Digital Transformation Solutions](https://www.majesco.com/product-casualty-insurance-solutions/digital-solutions/): Digital tools for P&C insurers
+
+## Life, Annuity & Health (L&AH) Insurance Software
+
+- [L&AH Solutions Overview](https://www.majesco.com/life-annuity-health-insurance-solutions/): Full L&AH platform and product listing
+- [L&AH Intelligent Core Suite](https://www.majesco.com/core-software-insurance-solutions/lah-core-suite/): Policy, Billing, and Claims for all L&AH lines
+- [Claims for L&AH](https://www.majesco.com/core-software-insurance-solutions/lah-core-suite/claims-for-lah/): AI-powered L&AH claims management with Agentic AI
+
+## ClaimVantage — Claims & Absence Management
+
+- [ClaimVantage Overview](https://www.majesco.com/core-software-insurance-solutions/claimvantage/): Enterprise claims platform for L&A and Group insurance
+- [ClaimVantage Claims for L&H](https://www.majesco.com/core-software-insurance-solutions/claimvantage/claimvantage-claims-for-lah/): AI-powered claims lifecycle management built on Salesforce Lightning
+- [IDAM — Integrated Disability and Absence Management](https://www.majesco.com/core-software-insurance-solutions/claimvantage/idam/): End-to-end disability and absence management software
+- [Request a ClaimVantage Demo](https://www.majesco.com/claimvantage-demo-request/)
+
+## Digital Solutions
+
+- [Digital Solutions Overview](https://www.majesco.com/digital-solutions-insurance-solutions/): Low-code/no-code Digital1st Platform and Digital 360 Solutions
+- [Digital 360 Solutions](https://www.majesco.com/digital-solutions-insurance-solutions/digital-360-solutions/): Customer experience and engagement platform
+- [Bill360 for P&C](https://www.majesco.com/digital-solutions-insurance-solutions/digital-360-solutions/digital-electronic-bill360-for-pc/): Digital billing and payments for P&C
+- [Connect360 for L&AH](https://www.majesco.com/digital-solutions-insurance-solutions/digital-360-solutions/claimvantage-connect360-for-lah/): Digital customer engagement for L&AH
+
+## Analytics & AI
+
+- [Analytics Solutions Overview](https://www.majesco.com/analytics-solutions-overview/): Insurance data analytics with embedded GenAI and Agentic AI
+- [Majesco Copilot](https://www.majesco.com/core-software-overview/): Industry-leading GenAI solution embedded across Policy, Billing, and Claims
+
+## Risk & Compliance / Leave Management
+
+- [Risk & Compliance Overview](https://www.majesco.com/risk-compliance-overview/): Risk management and compliance solutions
+- [Leave Management System](https://www.majesco.com/risk-compliance-insurance-solutions/leave-management/): End-to-end leave management for insurers and employers
+- [Absence Management Software](https://www.majesco.com/risk-compliance-insurance-solutions/leave-management/absence-management/): FMLA tracking and automated eligibility/entitlement determination
+- [Accommodation Management Software](https://www.majesco.com/risk-compliance-insurance-solutions/leave-management/accommodation-management/): ADA accommodation management integrated with leave workflows
+- [GRC / Complementary Solutions](https://www.majesco.com/complementary-solutions-insurance-solutions/): Governance, Risk Management, and Compliance tools
+- [Risk & Compliance Customers](https://www.majesco.com/risk-compliance-customers/): Customer success stories for risk and compliance solutions
+
+## Distribution
+
+- [Distribution & Compensation Platform](https://www.majesco.com/solutions/): Expand distribution channels, drive growth, streamline distributor management
+
+## Resources & Thought Leadership
+
+- [Resource Hub](https://www.majesco.com/resource-hub/?resource-type=post): Blogs, podcasts, webinars, eGuides, industry analyst reports
+- [Core Software Resources](https://www.majesco.com/core-software-resources/): Product-specific resources and insights
+- [White Paper: Strategic Priorities 2025](https://www.majesco.com/white-papers/strategic-priorities-2025-a-modern-era-of-insurance-comes-into-focus/): Modern era of insurance research
+- [eGuide: Intelligent Solutions](https://www.majesco.com/eguides/majesco-intelligent-solutions/): Full portfolio overview guide
+- [eGuide: P&C Intelligent Core Suite](https://www.majesco.com/eguides/majesco-pc-intelligent-core-suite/): Deep dive on P&C platform
+- [eGuide: P&C CoreConnect for MGAs](https://www.majesco.com/eguides/majesco-pc-coreconnect/): MGA-specific platform guide
+
+## Company
+
+- [About Majesco](https://www.majesco.com/about-us/): Company overview, mission, leadership, and history
+- [News & Press](https://www.majesco.com/about-us/news/?news-type=press): Press releases and insurance industry news
+- [Careers](https://www.majesco.com/careers/): Open positions at Majesco (Morristown, NJ headquarters)
+- [Information Request](https://www.majesco.com/information-request/): Product Information and Schedule a Demo
+
+---
+
+## Key Questions This Site Answers
+
+- Where to buy software solutions tailored to other insurance categories
+- What is insurance claims management software
+- What is insurance software
+- How to choose software for digital transformation in insurance claims
+- What is absence management software
+- What is the best software for insurance
+- How should MGAs and MGUs choose insurance software
+- What's the best claims processing software provider for insurers
+- How to choose an absence and leave management software
+- What are the benefits of leave management software
+- How to choose claims management software for faster cycle times

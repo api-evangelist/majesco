@@ -1,0 +1,197 @@
+generated: '2026-09-17'
+method: probed
+source: live GET of the named /.well-known/ paths on every host this record knows
+description: 'Well-known discovery probe for Majesco. Every named path was requested on each host. NOTHING
+  was found: majesco.com answers 404 (WordPress 404 template) or returns an Imperva/Incapsula interstitial
+  with HTTP 200 and an HTML body, which is not a document. No WellKnown or SecurityTxt pointer is wired,
+  because none of these surfaces is actually served.'
+summary:
+  hosts_probed: 4
+  paths_probed: 8
+  documents_found: 0
+hosts:
+- host: www.majesco.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: text/html
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: text/html
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/api-catalog
+    status: 200
+    content_type: text/html
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    content_type: text/html; charset=UTF-8
+    file: null
+- host: majesco.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: text/html
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: text/html
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/api-catalog
+    status: 200
+    content_type: text/html
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    content_type: text/html; charset=UTF-8
+    file: null
+- host: trust.majesco.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 403
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/api-catalog
+    status: 403
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 403
+    content_type: text/html; charset=UTF-8
+    file: null
+  - path: /.well-known/agent.json
+    status: 403
+    content_type: text/html; charset=UTF-8
+    file: null
+- host: support.majesco.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    content_type: text/html;charset=UTF-8
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html;charset=UTF-8
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    content_type: text/html;charset=UTF-8
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    content_type: text/html;charset=UTF-8
+    file: null
+  - path: /.well-known/api-catalog
+    status: 200
+    content_type: text/html;charset=UTF-8
+    file: null
+    note: HTTP 200 but the body is an HTML shell (Imperva/Incapsula edge challenge or the WordPress 404
+      template) — not a document; recorded as a miss.
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    content_type: text/html;charset=UTF-8
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    content_type: text/html;charset=UTF-8
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    content_type: text/html;charset=UTF-8
+    file: null
+related:
+- note: Majesco DOES publish an agent-facing document set, just not under /.well-known/.
+  documents:
+  - url: https://www.majesco.com/llms.txt
+    status: 200
+    file: llms/majesco-llms.txt
+  - url: https://www.majesco.com/llms-full.txt
+    status: 200
+    file: null
+    note: fetched and verified live; deliberately NOT saved — *-llms-full.txt is gitignored
+  - url: https://www.majesco.com/ai.txt
+    status: 200
+    file: llms/majesco-ai.txt
+  - url: https://www.majesco.com/ai-entities.json
+    status: 200
+    file: llms/majesco-ai-entities.json
+  - url: https://www.majesco.com/ai-intent.json
+    status: 200
+    file: llms/majesco-ai-intent.json
+  - url: https://www.majesco.com/ai-schema.json
+    status: 200
+    file: json-ld/majesco-ai-schema.jsonld
+  - url: https://www.majesco.com/ai-sitemap.xml
+    status: 200
+    file: null
+  - url: https://www.majesco.com/robots.txt
+    status: 200
+    file: null
+    note: explicitly Allows GPTBot/ClaudeBot and points them at llms.txt, ai.txt and ai-sitemap.xml

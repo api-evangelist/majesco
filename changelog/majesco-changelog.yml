@@ -1,0 +1,72 @@
+generated: '2026-09-17'
+method: searched
+source: https://www.majesco.com/about-us/press/
+description: >-
+  Majesco publishes no API-level changelog, release-notes feed or version history on any public
+  surface — there is no public developer portal to carry one. What it DOES publish, on a firm and
+  long-running cadence, is a named twice-yearly PLATFORM release announced through its own press
+  room and blog. That is the only dated release record a member of the public can read, so it is
+  what this artifact captures. It describes the product, not the wire contract: no endpoint,
+  schema or breaking-change detail is published with any of these releases.
+scheme:
+  style: named-seasonal
+  pattern: '"Spring ''YY" and "Fall ''YY" — two named platform releases per calendar year'
+  cadence: semi-annual
+  since: '2022'
+  api_versioning: null
+  api_versioning_note: >-
+    No public API version scheme is documented. Majesco's API Management (APIM) product is sold to
+    carriers and runs inside each customer's tenant, so contract versioning is a per-tenant matter
+    that is not published.
+current:
+  version: Spring '26
+  date: '2026-04-23'
+  source: https://www.majesco.com/blog/redefine-possible-with-majescos-spring-26-release/
+breaking_change_policy: null
+breaking_change_policy_note: No deprecation, sunset or breaking-change policy is published publicly.
+entries:
+- version: Spring '26
+  date: '2026-04-23'
+  date_source: blog post publication date (captured in blogs/)
+  type: platform-release
+  breaking: unknown
+  url: https://www.majesco.com/blog/redefine-possible-with-majescos-spring-26-release/
+  highlights:
+  - Announced as the Spring '26 platform release across the Intelligent Core suites.
+- version: Fall '25
+  date: '2025-10-10'
+  date_source: sitemap lastmod — may differ from the original publication date
+  type: platform-release
+  breaking: unknown
+  url: https://www.majesco.com/press/majesco-launches-fall-25-release-with-ai-agents-to-transform-intelligent-insurance-operations/
+  highlights:
+  - Headlined AI agents for insurance operations.
+- version: Spring '25
+  date: '2025-04-14'
+  date_source: sitemap lastmod — may differ from the original publication date
+  type: platform-release
+  breaking: unknown
+  url: https://www.majesco.com/press/majesco-spring-25-release-moving-beyond-insights-to-real-business-impact/
+- version: Fall '24
+  date: '2025-09-03'
+  date_source: sitemap lastmod — may differ from the original publication date
+  type: platform-release
+  breaking: unknown
+  url: https://www.majesco.com/press/majesco-unveils-transformative-fall-24-release/
+- version: Spring '24
+  date: '2025-05-08'
+  date_source: sitemap lastmod — may differ from the original publication date
+  type: platform-release
+  breaking: unknown
+  url: https://www.majesco.com/press/cutting-edge-generative-ai-power-with-majescos-copilot-spearheads-the-spring-24-release/
+evidence:
+- url: https://www.majesco.com/press-sitemap.xml
+  status: 200
+  note: release announcements enumerated from the provider's own press sitemap
+- url: https://www.majesco.com/blog/redefine-possible-with-majescos-spring-26-release/
+  status: 200
+gaps:
+- No machine-readable changelog (no RSS/Atom release feed, no changelog.json, no /releases page).
+- No per-release API diff, endpoint list or schema delta is published.
+- Release notes for the APIs themselves are delivered inside the customer support portal
+  (majescoprod.service-now.com), which requires a customer login.

@@ -4,141 +4,49 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: majesco
 providerId: majesco
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
-plans:
-  - id: majesco-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the majesco API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.majesco.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.majesco.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Majesco Insurance SaaS API
-  - id: majesco-pro
-    name: Professional
-    type: paid
-    description: Production tier for majesco. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.majesco.example.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.majesco.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.majesco.example.com
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Majesco Insurance SaaS API
-  - id: majesco-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for majesco. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.majesco.example.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.majesco.example.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Majesco Insurance SaaS API
+modified: '2026-09-17'
+generated: '2026-09-17'
+method: searched
+source: https://www.majesco.com/page-sitemap.xml
+tags:
+- Pricing
+- Plans
+description: >-
+  Majesco publishes NO pricing and NO plans. Every public route into the product is a demo request
+  or an information request handled by sales; there is no pricing page, no plan comparison, no
+  self-serve tier and no developer signup anywhere on majesco.com. This file records that measured
+  zero. It replaces a 2026-05-04 bulk-sweep scaffold that had invented three tiers (Free /
+  Professional / Enterprise) with fabricated quotas and per-minute limits attached to the
+  non-routable host api.majesco.example.com; none of those numbers came from Majesco.
+plan_count: 0
+plans: []
+access:
+  model: enterprise-sales
+  self_serve: false
+  free_tier: false
+  trial: false
+  public_signup: false
+  route_to_purchase: demo request / information request form, qualified by sales
+evidence:
+- url: https://www.majesco.com/page-sitemap.xml
+  status: 200
+  note: >-
+    All 138 public pages enumerated; no /pricing/, /plans/ or /cost/ page exists. The only
+    conversion paths are *-demo-request/ and /information-request/.
+- url: https://www.majesco.com/information-request/
+  status: 200
+  note: '"Product Information and Schedule a Demo" — the only published route to a quote.'
+- url: https://www.majesco.com/llms.txt
+  status: 200
+  note: >-
+    Majesco's own LLM-facing site summary lists solutions, resources and company pages and names no
+    pricing surface at all.
+superseded:
+  previous_method: generated
+  previous_generated: '2026-05-04'
+  reason: >-
+    The prior file was a bulk-sweep scaffold that self-declared its values as placeholders
+    ("Tier limits and prices are scaffold defaults"). Under the current contract an unmeasured
+    scaffold reads to the scorer, and to a human, as a provider-published plan set. Replaced with
+    the measured absence.
 maintainers: []

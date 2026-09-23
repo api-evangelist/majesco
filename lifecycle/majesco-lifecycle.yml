@@ -1,0 +1,55 @@
+generated: '2026-09-17'
+method: searched
+source: https://www.majesco.com/
+description: >-
+  Lifecycle posture for Majesco's public API surface. Searched for a status page, a versioning
+  policy, a deprecation/sunset policy and a published SLA. None of the four is served publicly.
+  Majesco sells API Management (APIM) as a component of its core suites; the operational lifecycle
+  documents that normally live on a developer portal are delivered inside the customer support
+  portal instead, which requires a login.
+status_page:
+  present: false
+  url: null
+  evidence:
+  - url: https://status.majesco.com/
+    status: 0
+    note: no DNS record — the host does not resolve.
+  - url: https://www.majesco.com/
+    status: 200
+    note: no status/uptime link anywhere in the site navigation, llms.txt or the page sitemap.
+versioning:
+  policy_published: false
+  scheme: named-seasonal platform releases ("Spring '26", "Fall '25") — see changelog/
+  api_version_scheme: null
+  evidence:
+  - url: https://www.majesco.com/press-sitemap.xml
+    status: 200
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  evidence:
+  - url: https://www.majesco.com/
+    status: 200
+    note: no deprecation or end-of-life policy is published on any public Majesco page.
+sla:
+  published: false
+  note: >-
+    SLA terms are contractual per carrier; Majesco publishes no public uptime commitment. No public
+    terms-of-service page exists either (the site's only legal pages are the privacy policy and
+    cookie policy).
+support:
+  portal: https://www.majesco.com/majesco-support/
+  system: https://majescoprod.service-now.com/csm
+  public: false
+  note: >-
+    /majesco-support/ is a public landing page; it hands off to a ServiceNow CSM portal that
+    requires a customer login. This is where release notes and deprecation notices reach carriers.
+  evidence:
+  - url: https://www.majesco.com/majesco-support/
+    status: 200
+  - url: https://support.majesco.com/
+    status: 200
+    note: redirects to https://majescoprod.service-now.com/csm

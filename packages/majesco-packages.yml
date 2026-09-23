@@ -1,0 +1,47 @@
+generated: '2026-09-17'
+method: searched
+source: registry search across npm, PyPI, RubyGems, NuGet, Maven Central and GitHub
+description: >-
+  Searched every major package registry for a first-party Majesco client library. There is none.
+  This is an honest zero, not an unchecked field: each registry below was queried and answered.
+  Majesco ships no public SDK because it ships no public API — its APIM gateway is provisioned per
+  carrier tenant, and any client code a carrier receives arrives through the customer support
+  portal under contract.
+summary:
+  package_count: 0
+  official_count: 0
+packages: []
+registries_checked:
+- registry: npm
+  endpoint: https://registry.npmjs.org/-/v1/search?text=majesco
+  status: 200
+  results: 0
+- registry: pypi
+  endpoint: https://pypi.org/pypi/majesco/json
+  status: 404
+  results: 0
+- registry: rubygems
+  endpoint: https://rubygems.org/api/v1/gems/majesco.json
+  status: 404
+  results: 0
+- registry: nuget
+  endpoint: https://azuresearch-usnc.nuget.org/query?q=majesco
+  status: 200
+  results: 0
+- registry: maven-central
+  endpoint: https://search.maven.org/solrsearch/select?q=majesco
+  status: 200
+  results: 0
+related:
+- name: MajescoMCS/Angular-Components
+  url: https://github.com/MajescoMCS/Angular-Components
+  official: unconfirmed
+  registry: null
+  version: null
+  published: '2017-11-30'
+  note: >-
+    The only public repository on GitHub that plausibly belongs to Majesco — one repo, MIT licensed,
+    described as "Generic components that can be leveraged for Majesco Insurance customers", last
+    pushed 2017-11-30 and untouched since. NOT an API client, and the MajescoMCS org is not linked
+    from majesco.com, so first-party ownership could not be confirmed. Recorded as a lead, not
+    counted as a package, and deliberately NOT wired as a GitHubOrganization pointer.
