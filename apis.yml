@@ -54,8 +54,6 @@ apis:
   - type: JSONLDContext
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
-  - type: GraphQL
-    url: graphql/majesco-graphql.md
 - aid: majesco:majesco-claims-api
   name: majesco Claims API
   description: Claims intake and management
@@ -75,8 +73,6 @@ apis:
   - type: JSONLDContext
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
-  - type: GraphQL
-    url: graphql/majesco-graphql.md
 - aid: majesco:majesco-distribution-api
   name: majesco Distribution API
   description: Quote and bind operations for distribution channels
@@ -96,8 +92,6 @@ apis:
   - type: JSONLDContext
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
-  - type: GraphQL
-    url: graphql/majesco-graphql.md
 - aid: majesco:majesco-policies-api
   name: majesco Policies API
   description: Insurance policy lifecycle management
@@ -117,8 +111,6 @@ apis:
   - type: JSONLDContext
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
-  - type: GraphQL
-    url: graphql/majesco-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/majesco-agentic-access.yml
