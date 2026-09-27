@@ -72,25 +72,25 @@ paths:
                 $ref: '#/components/schemas/Payment'
 components:
   schemas:
-    Payment:
+    PaymentRequest:
       type: object
+      required:
+      - amount
+      - paymentMethod
       properties:
-        paymentId:
-          type: string
-        accountId:
-          type: string
         amount:
           type: number
+        paymentMethod:
+          type: string
+          enum:
+          - credit_card
+          - ach
+          - check
         paymentDate:
           type: string
           format: date
-        status:
+        referenceNumber:
           type: string
-          enum:
-          - applied
-          - pending
-          - returned
-          - voided
     BillingAccountListResponse:
       type: object
       properties:
@@ -121,25 +121,25 @@ components:
           - ach
           - check
           - agency_bill
-    PaymentRequest:
+    Payment:
       type: object
-      required:
-      - amount
-      - paymentMethod
       properties:
+        paymentId:
+          type: string
+        accountId:
+          type: string
         amount:
           type: number
-        paymentMethod:
-          type: string
-          enum:
-          - credit_card
-          - ach
-          - check
         paymentDate:
           type: string
           format: date
-        referenceNumber:
+        status:
           type: string
+          enum:
+          - applied
+          - pending
+          - returned
+          - voided
   securitySchemes:
     OAuth2:
       type: oauth2

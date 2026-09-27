@@ -48,57 +48,41 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
-    Policyholder:
-      type: object
-      required:
-      - firstName
-      - lastName
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        email:
-          type: string
-          format: email
-        phone:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-    Address:
+    ValidationError:
       type: object
       properties:
-        street1:
+        code:
           type: string
-        street2:
+        message:
           type: string
-        city:
-          type: string
-        state:
-          type: string
-          description: Two-letter US state code
-          pattern: ^[A-Z]{2}$
-        postalCode:
-          type: string
-        country:
-          type: string
-          default: US
-    CoverageRequest:
+        violations:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+    Coverage:
       type: object
-      required:
-      - coverageCode
       properties:
         coverageCode:
+          type: string
+        coverageDescription:
           type: string
         limit:
           type: number
         deductible:
           type: number
+        premium:
+          type: number
+        status:
+          type: string
+          enum:
+          - active
+          - excluded
+          - suspended
     Quote:
       type: object
       properties:
@@ -120,25 +104,6 @@ components:
         expiresAt:
           type: string
           format: date-time
-    Coverage:
-      type: object
-      properties:
-        coverageCode:
-          type: string
-        coverageDescription:
-          type: string
-        limit:
-          type: number
-        deductible:
-          type: number
-        premium:
-          type: number
-        status:
-          type: string
-          enum:
-          - active
-          - excluded
-          - suspended
     QuoteRequest:
       type: object
       required:
@@ -161,22 +126,57 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CoverageRequest'
-    ValidationError:
+    CoverageRequest:
+      type: object
+      required:
+      - coverageCode
+      properties:
+        coverageCode:
+          type: string
+        limit:
+          type: number
+        deductible:
+          type: number
+    Address:
       type: object
       properties:
-        code:
+        street1:
           type: string
-        message:
+        street2:
           type: string
-        violations:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
+        city:
+          type: string
+        state:
+          type: string
+          description: Two-letter US state code
+          pattern: ^[A-Z]{2}$
+        postalCode:
+          type: string
+        country:
+          type: string
+          default: US
+    Policyholder:
+      type: object
+      required:
+      - firstName
+      - lastName
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
   securitySchemes:
     OAuth2:
       type: oauth2
