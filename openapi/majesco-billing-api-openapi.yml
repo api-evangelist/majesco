@@ -72,25 +72,6 @@ paths:
                 $ref: '#/components/schemas/Payment'
 components:
   schemas:
-    PaymentRequest:
-      type: object
-      required:
-      - amount
-      - paymentMethod
-      properties:
-        amount:
-          type: number
-        paymentMethod:
-          type: string
-          enum:
-          - credit_card
-          - ach
-          - check
-        paymentDate:
-          type: string
-          format: date
-        referenceNumber:
-          type: string
     BillingAccountListResponse:
       type: object
       properties:
@@ -121,6 +102,25 @@ components:
           - ach
           - check
           - agency_bill
+    PaymentRequest:
+      type: object
+      required:
+      - amount
+      - paymentMethod
+      properties:
+        amount:
+          type: number
+        paymentMethod:
+          type: string
+          enum:
+          - credit_card
+          - ach
+          - check
+        paymentDate:
+          type: string
+          format: date
+        referenceNumber:
+          type: string
     Payment:
       type: object
       properties:

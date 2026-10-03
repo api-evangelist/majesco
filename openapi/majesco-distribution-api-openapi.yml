@@ -48,22 +48,17 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
-    ValidationError:
+    CoverageRequest:
       type: object
+      required:
+      - coverageCode
       properties:
-        code:
+        coverageCode:
           type: string
-        message:
-          type: string
-        violations:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
+        limit:
+          type: number
+        deductible:
+          type: number
     Coverage:
       type: object
       properties:
@@ -83,6 +78,40 @@ components:
           - active
           - excluded
           - suspended
+    Address:
+      type: object
+      properties:
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+          description: Two-letter US state code
+          pattern: ^[A-Z]{2}$
+        postalCode:
+          type: string
+        country:
+          type: string
+          default: US
+    ValidationError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     Quote:
       type: object
       properties:
@@ -104,57 +133,6 @@ components:
         expiresAt:
           type: string
           format: date-time
-    QuoteRequest:
-      type: object
-      required:
-      - productType
-      - effectiveDate
-      - applicant
-      properties:
-        productType:
-          type: string
-        effectiveDate:
-          type: string
-          format: date
-        applicant:
-          $ref: '#/components/schemas/Policyholder'
-        riskData:
-          type: object
-          additionalProperties: true
-          description: Product-specific risk data (vehicle, property, etc.)
-        requestedCoverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoverageRequest'
-    CoverageRequest:
-      type: object
-      required:
-      - coverageCode
-      properties:
-        coverageCode:
-          type: string
-        limit:
-          type: number
-        deductible:
-          type: number
-    Address:
-      type: object
-      properties:
-        street1:
-          type: string
-        street2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-          description: Two-letter US state code
-          pattern: ^[A-Z]{2}$
-        postalCode:
-          type: string
-        country:
-          type: string
-          default: US
     Policyholder:
       type: object
       required:
@@ -177,6 +155,28 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/Address'
+    QuoteRequest:
+      type: object
+      required:
+      - productType
+      - effectiveDate
+      - applicant
+      properties:
+        productType:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        applicant:
+          $ref: '#/components/schemas/Policyholder'
+        riskData:
+          type: object
+          additionalProperties: true
+          description: Product-specific risk data (vehicle, property, etc.)
+        requestedCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageRequest'
   securitySchemes:
     OAuth2:
       type: oauth2
