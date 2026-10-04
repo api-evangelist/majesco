@@ -227,81 +227,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Policy'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: Insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request data
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    CoverageRequest:
+    Policyholder:
       type: object
       required:
-      - coverageCode
+      - firstName
+      - lastName
       properties:
-        coverageCode:
+        id:
           type: string
-        limit:
-          type: number
-        deductible:
-          type: number
-    Coverage:
-      type: object
-      properties:
-        coverageCode:
+        firstName:
           type: string
-        coverageDescription:
+        lastName:
           type: string
-        limit:
-          type: number
-        deductible:
-          type: number
-        premium:
-          type: number
-        status:
-          type: string
-          enum:
-          - active
-          - excluded
-          - suspended
-    CancellationRequest:
-      type: object
-      required:
-      - effectiveDate
-      - reason
-      properties:
-        effectiveDate:
+        dateOfBirth:
           type: string
           format: date
-        reason:
+        email:
           type: string
-          enum:
-          - nonpayment
-          - insured_request
-          - underwriting
-          - fraud
-          - other
-        notes:
+          format: email
+        phone:
           type: string
+        address:
+          $ref: '#/components/schemas/Address'
     Policy:
       type: object
       properties:
@@ -352,24 +300,36 @@ components:
         updatedAt:
           type: string
           format: date-time
-    Address:
+    CancellationRequest:
       type: object
+      required:
+      - effectiveDate
+      - reason
       properties:
-        street1:
+        effectiveDate:
           type: string
-        street2:
+          format: date
+        reason:
           type: string
-        city:
+          enum:
+          - nonpayment
+          - insured_request
+          - underwriting
+          - fraud
+          - other
+        notes:
           type: string
-        state:
+    CoverageRequest:
+      type: object
+      required:
+      - coverageCode
+      properties:
+        coverageCode:
           type: string
-          description: Two-letter US state code
-          pattern: ^[A-Z]{2}$
-        postalCode:
-          type: string
-        country:
-          type: string
-          default: US
+        limit:
+          type: number
+        deductible:
+          type: number
     ErrorResponse:
       type: object
       properties:
@@ -379,6 +339,33 @@ components:
           type: string
         requestId:
           type: string
+    PolicyUpdateRequest:
+      type: object
+      properties:
+        endorsementType:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        changes:
+          type: object
+          additionalProperties: true
+    ValidationError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     Endorsement:
       type: object
       properties:
@@ -393,6 +380,36 @@ components:
           type: string
         premiumChange:
           type: number
+    Coverage:
+      type: object
+      properties:
+        coverageCode:
+          type: string
+        coverageDescription:
+          type: string
+        limit:
+          type: number
+        deductible:
+          type: number
+        premium:
+          type: number
+        status:
+          type: string
+          enum:
+          - active
+          - excluded
+          - suspended
+    PolicyListResponse:
+      type: object
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
+        totalCount:
+          type: integer
+        nextPageToken:
+          type: string
     Premium:
       type: object
       properties:
@@ -414,44 +431,24 @@ components:
           - semi_annual
           - quarterly
           - monthly
-    ValidationError:
+    Address:
       type: object
       properties:
-        code:
+        street1:
           type: string
-        message:
+        street2:
           type: string
-        violations:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
-    PolicyListResponse:
-      type: object
-      properties:
-        policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Policy'
-        totalCount:
-          type: integer
-        nextPageToken:
+        city:
           type: string
-    PolicyUpdateRequest:
-      type: object
-      properties:
-        endorsementType:
+        state:
           type: string
-        effectiveDate:
+          description: Two-letter US state code
+          pattern: ^[A-Z]{2}$
+        postalCode:
           type: string
-          format: date
-        changes:
-          type: object
-          additionalProperties: true
+        country:
+          type: string
+          default: US
     PolicyCreateRequest:
       type: object
       required:
@@ -485,28 +482,31 @@ components:
           type: string
         channelCode:
           type: string
-    Policyholder:
-      type: object
-      required:
-      - firstName
-      - lastName
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        email:
-          type: string
-          format: email
-        phone:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     OAuth2:
       type: oauth2

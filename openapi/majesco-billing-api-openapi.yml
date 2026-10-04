@@ -72,15 +72,25 @@ paths:
                 $ref: '#/components/schemas/Payment'
 components:
   schemas:
-    BillingAccountListResponse:
+    PaymentRequest:
       type: object
+      required:
+      - amount
+      - paymentMethod
       properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingAccount'
-        totalCount:
-          type: integer
+        amount:
+          type: number
+        paymentMethod:
+          type: string
+          enum:
+          - credit_card
+          - ach
+          - check
+        paymentDate:
+          type: string
+          format: date
+        referenceNumber:
+          type: string
     BillingAccount:
       type: object
       properties:
@@ -102,25 +112,15 @@ components:
           - ach
           - check
           - agency_bill
-    PaymentRequest:
+    BillingAccountListResponse:
       type: object
-      required:
-      - amount
-      - paymentMethod
       properties:
-        amount:
-          type: number
-        paymentMethod:
-          type: string
-          enum:
-          - credit_card
-          - ach
-          - check
-        paymentDate:
-          type: string
-          format: date
-        referenceNumber:
-          type: string
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingAccount'
+        totalCount:
+          type: integer
     Payment:
       type: object
       properties:

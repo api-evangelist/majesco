@@ -48,6 +48,50 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
+    QuoteRequest:
+      type: object
+      required:
+      - productType
+      - effectiveDate
+      - applicant
+      properties:
+        productType:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        applicant:
+          $ref: '#/components/schemas/Policyholder'
+        riskData:
+          type: object
+          additionalProperties: true
+          description: Product-specific risk data (vehicle, property, etc.)
+        requestedCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageRequest'
+    Policyholder:
+      type: object
+      required:
+      - firstName
+      - lastName
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
     CoverageRequest:
       type: object
       required:
@@ -59,6 +103,43 @@ components:
           type: number
         deductible:
           type: number
+    Quote:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        status:
+          type: string
+          enum:
+          - quoted
+          - declined
+          - referred
+          - expired
+        totalPremium:
+          type: number
+        coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coverage'
+        expiresAt:
+          type: string
+          format: date-time
+    ValidationError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     Coverage:
       type: object
       properties:
@@ -96,87 +177,6 @@ components:
         country:
           type: string
           default: US
-    ValidationError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        violations:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
-    Quote:
-      type: object
-      properties:
-        quoteId:
-          type: string
-        status:
-          type: string
-          enum:
-          - quoted
-          - declined
-          - referred
-          - expired
-        totalPremium:
-          type: number
-        coverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coverage'
-        expiresAt:
-          type: string
-          format: date-time
-    Policyholder:
-      type: object
-      required:
-      - firstName
-      - lastName
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        dateOfBirth:
-          type: string
-          format: date
-        email:
-          type: string
-          format: email
-        phone:
-          type: string
-        address:
-          $ref: '#/components/schemas/Address'
-    QuoteRequest:
-      type: object
-      required:
-      - productType
-      - effectiveDate
-      - applicant
-      properties:
-        productType:
-          type: string
-        effectiveDate:
-          type: string
-          format: date
-        applicant:
-          $ref: '#/components/schemas/Policyholder'
-        riskData:
-          type: object
-          additionalProperties: true
-          description: Product-specific risk data (vehicle, property, etc.)
-        requestedCoverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoverageRequest'
   securitySchemes:
     OAuth2:
       type: oauth2
