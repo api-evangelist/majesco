@@ -91,6 +91,34 @@ components:
           format: date
         referenceNumber:
           type: string
+    Payment:
+      type: object
+      properties:
+        paymentId:
+          type: string
+        accountId:
+          type: string
+        amount:
+          type: number
+        paymentDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+          - applied
+          - pending
+          - returned
+          - voided
+    BillingAccountListResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingAccount'
+        totalCount:
+          type: integer
     BillingAccount:
       type: object
       properties:
@@ -112,34 +140,6 @@ components:
           - ach
           - check
           - agency_bill
-    BillingAccountListResponse:
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BillingAccount'
-        totalCount:
-          type: integer
-    Payment:
-      type: object
-      properties:
-        paymentId:
-          type: string
-        accountId:
-          type: string
-        amount:
-          type: number
-        paymentDate:
-          type: string
-          format: date
-        status:
-          type: string
-          enum:
-          - applied
-          - pending
-          - returned
-          - voided
   securitySchemes:
     OAuth2:
       type: oauth2

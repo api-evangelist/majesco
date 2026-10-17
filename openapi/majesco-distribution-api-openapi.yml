@@ -48,6 +48,36 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
+    CoverageRequest:
+      type: object
+      required:
+      - coverageCode
+      properties:
+        coverageCode:
+          type: string
+        limit:
+          type: number
+        deductible:
+          type: number
+    Coverage:
+      type: object
+      properties:
+        coverageCode:
+          type: string
+        coverageDescription:
+          type: string
+        limit:
+          type: number
+        deductible:
+          type: number
+        premium:
+          type: number
+        status:
+          type: string
+          enum:
+          - active
+          - excluded
+          - suspended
     QuoteRequest:
       type: object
       required:
@@ -92,17 +122,22 @@ components:
           type: string
         address:
           $ref: '#/components/schemas/Address'
-    CoverageRequest:
+    ValidationError:
       type: object
-      required:
-      - coverageCode
       properties:
-        coverageCode:
+        code:
           type: string
-        limit:
-          type: number
-        deductible:
-          type: number
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
     Quote:
       type: object
       properties:
@@ -124,41 +159,6 @@ components:
         expiresAt:
           type: string
           format: date-time
-    ValidationError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        violations:
-          type: array
-          items:
-            type: object
-            properties:
-              field:
-                type: string
-              message:
-                type: string
-    Coverage:
-      type: object
-      properties:
-        coverageCode:
-          type: string
-        coverageDescription:
-          type: string
-        limit:
-          type: number
-        deductible:
-          type: number
-        premium:
-          type: number
-        status:
-          type: string
-          enum:
-          - active
-          - excluded
-          - suspended
     Address:
       type: object
       properties:
