@@ -22,6 +22,16 @@ edges:
   evidence: PATCH /policies/{policyNumber}  updatePolicy  Update (endorse) a policy; POST /policies/{policyNumber}/renew  renewPolicy
   reason: Full in-force policy lifecycle — issuance, endorsement, cancellation, renewal — is Policy Administration
     Management; multiple L2s covered so L1 only.
+- tag: Billing
+  spec_file: majesco-billing-api-openapi.yml
+  capability_id: BC-2150
+  capability_id_l1: BC-2150
+  capability_name: Premium Accounting Management
+  confidence: 0.85
+  evidence: GET /billing/accounts  listBillingAccounts; POST /billing/accounts/{accountId}/payments  recordPayment  Record
+    a payment
+  reason: Insurance billing accounts plus payment recording is premium accounting; it straddles billing
+    and collection sub-capabilities, so only the L1 is asserted.
 - tag: Claims
   spec_file: majesco-claims-api-openapi.yml
   capability_id: BC-2160.10
@@ -40,13 +50,3 @@ edges:
   evidence: 'POST /quotes  createQuote  Generate an insurance quote; schemas: QuoteRequest, Quote, CoverageRequest'
   reason: Tag is Distribution and the single operation generates insurance quotes — Quote & Submission
     Management under Insurance Distribution Management.
-- tag: Billing
-  spec_file: majesco-billing-api-openapi.yml
-  capability_id: BC-2150.20
-  capability_id_l1: BC-2150
-  capability_name: Premium Collection Management
-  confidence: 0.8
-  evidence: 'POST /billing/accounts/{accountId}/payments  recordPayment  Record a payment; schemas: PaymentRequest,
-    BillingAccount'
-  reason: Insurance platform billing accounts with payment recording maps to Premium Collection Management
-    (receipt and application of payments).
