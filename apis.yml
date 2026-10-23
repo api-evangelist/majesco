@@ -112,6 +112,9 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld
 common:
+- type: CapabilityMap
+  url: capabilities/majesco-capability-edges.yml
+  name: Majesco Business Capability Map
 - type: Plans
   url: plans/majesco-plans-pricing.yml
 - type: RateLimits
