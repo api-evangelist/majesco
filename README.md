@@ -1,4 +1,4 @@
-# majesco (majesco)
+# Majesco
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,45 +64,156 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Majesco is a global leader of cloud insurance software solutions for insurance business transformation, helping insurance carriers innovate, modernize, and accelerate their digital strategies.
+Majesco is a global provider of cloud-native insurance software for Property & Casualty and Life, Annuity & Health carriers, serving 130+ insurers worldwide from its Morristown, New Jersey headquarters. Founded in 1989, it unifies Policy, Billing and Claims administration on a single platform alongside digital engagement, distribution, analytics and risk & compliance products, with GenAI (Majesco Copilot) and agentic AI embedded across the core suites. Its ClaimVantage line covers L&H claims, disability and absence management. Majesco sells API Management (APIM) as a component of those suites rather than as a public developer program, so its API surface is provisioned per carrier tenant and is not publicly documented.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/apis.yml)
+**Areas:** Insurance · Insurtech · Policy Administration · Claims · Billing · Underwriting · Life and Annuity · Property and Casualty · Absence Management · Enterprise Software · Invoicing
 
-## Timestamps
+## Majesco on APIs.io
 
-- **Modified:** 2026-05-19
+Everything profiled for Majesco is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/majesco/](https://apis.io/providers/majesco/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (4)
 
-### Majesco Insurance SaaS API
+- [majesco Billing API](https://apis.io/apis/majesco/majesco-billing-api/) — Premium billing and payment operations
+- [majesco Claims API](https://apis.io/apis/majesco/majesco-claims-api/) — Claims intake and management
+- [majesco Distribution API](https://apis.io/apis/majesco/majesco-distribution-api/) — Quote and bind operations for distribution channels
+- [majesco Policies API](https://apis.io/apis/majesco/majesco-policies-api/) — Insurance policy lifecycle management
 
-Majesco provides cloud-based insurance platform APIs for policy administration, claims management, billing, and distribution. APIs enable digital insurance operations across P&C, L&A, and specialty lines with modern REST interfaces.
+### Published properties
 
-- **Human URL:** [https://www.majesco.com/](https://www.majesco.com/)
-- **Base URL:** `https://api.majesco.example.com`
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-#### Tags
+#### GraphQL (1)
 
-- Claims
-- Cloud
-- Insurance
-- Policy
-- SaaS
+GraphQL schemas.
 
-#### Properties
+- [Moved to /providers/majesco/](https://apis.io/graphqls/majesco/majesco-graphql/)
 
-- [Documentation](https://www.majesco.com/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/openapi/majesco-policy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld)
-- [Postman Collection](collections/majesco-policy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/majesco-policy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Agentic access (1)
 
-## Common Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [LinkedIn](https://www.linkedin.com/company/majesco)
-- [Portal](https://www.majesco.com/)
+- [Majesco Agentic Access](https://apis.io/agentic-access/majesco/majesco-agentic-access/)
+
+#### JSON Schema (1)
+
+The data models the API reads and writes.
+
+- [Majesco Insurance Policy](https://apis.io/schemas/majesco/majesco-policy/)
+
+#### JSON-LD (2)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Majesco Ai Schema Context](https://apis.io/jsonld/majesco/majesco-ai-schema/)
+- [Majesco Context](https://apis.io/jsonld/majesco/majesco-context/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Majesco Insurance Policy Administration Billing API](https://apis.io/collections/majesco/open-majesco-billing-api/)
+- [Majesco Insurance Policy Administration Billing Claims API](https://apis.io/collections/majesco/open-majesco-claims-api/)
+- [Majesco Insurance Policy Administration Billing Distribution API](https://apis.io/collections/majesco/open-majesco-distribution-api/)
+- [Majesco Insurance Policy Administration Billing Policies API](https://apis.io/collections/majesco/open-majesco-policies-api/)
+- [Majesco Insurance Policy Administration API](https://apis.io/collections/majesco/open-majesco-policy/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Majesco — jsonschema rules](https://apis.io/rules/majesco/majesco-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Majesco Authentication](https://apis.io/security/majesco/majesco-authentication/)
+- [Majesco Domain Security](https://apis.io/security/majesco/majesco-domain-security/)
+- [Majesco Trust Center](https://apis.io/security/majesco/majesco-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Majesco Scopes](https://apis.io/scopes/majesco/majesco-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Majesco Plans Pricing](https://apis.io/plans/majesco/majesco-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Majesco Rate Limits](https://apis.io/rate-limits/majesco/majesco-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Majesco Finops](https://apis.io/finops/majesco/majesco-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.majesco.com/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/openapi/majesco-policy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-schema/majesco-policy-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/majesco/refs/heads/main/json-ld/majesco-context.jsonld)
+- [Support](https://www.majesco.com/majesco-support/)
+- [Blog](https://www.majesco.com/blog/)
+- [Privacy policy](https://www.majesco.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 37.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 59.7 |
+| Contract governance | 28.0 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 15.8 |
+
+**Agent readiness 30.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 34.2** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/majesco/](https://apis.io/providers/majesco/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Majesco: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/majesco/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
